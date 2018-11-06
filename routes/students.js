@@ -34,11 +34,13 @@ module.exports = server => {
             return next(new errors.InvalidContentError("Expects 'application/json"))
         }
 
-        const { name, email, balance } = req.body;
+        const { name, surname, indexNumber, idOfClass, email } = req.body;
         const Student = new Student({
             name,
-            email,
-            balance
+            surname,
+            indexNumber,
+            idOfClass,
+            email
         });
 
         try{

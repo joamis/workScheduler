@@ -1,24 +1,38 @@
 const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
 
 const StudentSchema = new mongoose.Schema({
+
     name: {
         type: String,
         required: true,
         trim: true
     },
-    email: {
+
+    surname: {
         type: String,
         required: true,
         trim: true
     },
-    balance: {
-        type: Number,
-        default: 0
-    }
-});
 
-StudentSchema.plugin(timestamp);
+    indexNumber: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+
+    idOfClass: {
+        type: Number,
+        required: true,
+        trim: true
+
+    },
+
+    levelOfSatisfaction: {
+        type: Number,
+        required: true,
+    }
+
+});
 
 const Student = mongoose.model('Student', StudentSchema);
 module.exports = Student;
