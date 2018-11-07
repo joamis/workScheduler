@@ -1,5 +1,4 @@
 const errors = require('restify-errors');
-const Group = require('../models/Group');
 const config = require('../config');
 
 module.exports = server => {

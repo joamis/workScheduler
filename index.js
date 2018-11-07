@@ -1,7 +1,7 @@
 const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
-
+mongoose.set('debug', true);
 const server = restify.createServer();
 
 // Middleware
@@ -24,6 +24,7 @@ db.once('open', () => {
     //require('./routes/students')(server);
     require('./routes/preferences')(server);
     require('./routes/groups')(server);
+    require('./routes/scheduleWork')(server);
     console.log(`Server started on port ${config.PORT}`);
 });
 
