@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e8cc6b1-dc98-4fca-9485-4fd052cb1b77" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/WorkScheduler.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Subject.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/readyTimetable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/scheduleWork.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Group.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Preference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/WorkScheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/WorkScheduler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/Student.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Student.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/groups.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/groups.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/preferences.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/preferences.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Subject.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Subject.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/scheduleWork.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/scheduleWork.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,32 +31,41 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="69" />
+          <entry key="js" value="72" />
           <entry key="json" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="69" />
+          <entry key="JavaScript" value="72" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="8146" />
+          <entry key="js" value="10095" />
           <entry key="json" value="42" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="42" />
-          <entry key="JavaScript" value="8146" />
+          <entry key="JavaScript" value="10095" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Student.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="37" lean-forward="true" selection-start-column="37" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/preferences.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -96,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Subject.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
+            <state relative-caret-position="240">
+              <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -107,15 +107,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="465">
               <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/WorkScheduler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -138,6 +129,24 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/backend/WorkScheduler.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="34" column="57" lean-forward="true" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/scheduleWork.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -152,9 +161,27 @@
       <find>kolejka</find>
       <find>subjects</find>
       <find>StudentChoice</find>
+      <find>numberOfPeople</find>
+      <find>groupID</find>
+      <find>calculateLevelOfSatisfaction</find>
+      <find>findSameSubjectChoices</find>
+      <find>numberOfPep[;</find>
+      <find>return choice ===</find>
+      <find>increaseNextLowerPreferenceValue</find>
+      <find>increaseNextStudentPreferenceValue</find>
+      <find>numberOfPoints</find>
+      <find>associatedSubject</find>
+      <find>findAssociatedGroup</find>
+      <find>tryToAssignStudentByChoice</find>
+      <find>processSingleChoice</find>
+      <find>console.log</find>
+      <find>groups</find>
+      <find>choicesToIgnore</find>
     </findStrings>
     <replaceStrings>
       <replace>choicesQueue</replace>
+      <replace>studentChoice.choice.groupID</replace>
+      <replace>increaseNextStudentPreferenceValue</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -178,13 +205,13 @@
         <option value="$PROJECT_DIR$/routes/readyTimetable.js" />
         <option value="$PROJECT_DIR$/models/Group.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/models/Subject.js" />
         <option value="$PROJECT_DIR$/models/Preference.js" />
         <option value="$PROJECT_DIR$/models/Timetable.js" />
-        <option value="$PROJECT_DIR$/models/Student.js" />
         <option value="$PROJECT_DIR$/routes/preferences.js" />
         <option value="$PROJECT_DIR$/routes/groups.js" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/models/Subject.js" />
+        <option value="$PROJECT_DIR$/models/Student.js" />
         <option value="$PROJECT_DIR$/routes/scheduleWork.js" />
         <option value="$PROJECT_DIR$/backend/WorkScheduler.js" />
       </list>
@@ -298,18 +325,18 @@
       <workItem from="1541514653909" duration="2212000" />
       <workItem from="1541517674647" duration="126000" />
       <workItem from="1541517854323" duration="894000" />
-      <workItem from="1541520292851" duration="26500000" />
+      <workItem from="1541520292851" duration="36413000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59514000" />
+    <option name="totallyTimeSpent" value="69427000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4887097" weight="0.15409836" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4887097" visible="true" weight="0.15409836" />
       <window_info id="Structure" order="1" sideWeight="0.5112903" side_tool="true" weight="0.13770492" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -428,6 +455,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/preferences.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Student.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="37" lean-forward="true" selection-start-column="37" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/scheduleWork.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/groups.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -439,6 +487,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Subject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -463,38 +518,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/scheduleWork.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="66" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Student.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/preferences.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Subject.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/WorkScheduler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+        <state relative-caret-position="287">
+          <caret line="34" column="57" lean-forward="true" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
         </state>
       </provider>
     </entry>

@@ -11,7 +11,7 @@ module.exports = server => {
             const Students = await Student.find({});
             let workScheduler = new WorkScheduler(Subjects, Students)
             let calculatedWorkSchedule = workScheduler.calculateWorkSchedule()
-            res.send(calculatedWorkSchedule);
+            res.send(Students);
             next();
         } catch (err) {
             return next(new errors.InvalidContentError(err));

@@ -7,7 +7,7 @@ const Preference = new mongoose.Schema({
         trim: true
     },
     groupID: {
-        type: String,
+        type: Number,
         required: true,
         trim: true
     },
@@ -19,6 +19,10 @@ const Preference = new mongoose.Schema({
     }
 });
 
+const SubjectID = new mongoose.Schema({
+    nameOfSubject: String,
+    groupID: Number
+})
 const StudentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -31,7 +35,7 @@ const StudentSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    subjectsIds: [String]
+    subjectsIds: [SubjectID]
 });
 
 const Student = mongoose.model('Student', StudentSchema);
