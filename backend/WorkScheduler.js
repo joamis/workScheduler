@@ -36,6 +36,8 @@ module.exports = class WorkScheduler {
            // console.log(this.choicesToIgnore)
             console.log('  -------------------------- \n')
         }
+
+       this.assignLeftovers()
     }
 
     processSingleChoice(studentChoice) {
@@ -56,9 +58,7 @@ module.exports = class WorkScheduler {
         let associatedGroup = this.findAssociatedGroup(studentChoice.choice.nameOfSubject, studentChoice.choice.groupID)
         if (associatedGroup.numberOfPeople > 0)
         {
-            associatedGroup.numberOfPeople -= 1
-            studentChoice.student.subjectsIds.push({'nameOfSubject': studentChoice.choice.nameOfSubject, 'groupID': studentChoice.choice.groupID })
-            console.log('!!Assigned -> places left ' + associatedGroup.numberOfPeople)
+            this.assignStudentToGroup(associatedGroup, studentChoice.student, studentChoice.choice.nameOfSubject);
             return true
         }
         else
@@ -67,6 +67,15 @@ module.exports = class WorkScheduler {
             console.log(associatedGroup)
             return false
         }
+    }
+
+    assignStudentToGroup(associatedGroup, student, nameOfSubject) {
+        associatedGroup.numberOfPeople -= 1
+        student.subjectsIds.push({
+            'nameOfSubject': nameOfSubject,
+            'groupID': associatedGroup.groupID
+        })
+        console.log('!!Assigned -> places left ' + associatedGroup.numberOfPeople)
     }
 
     findAssociatedGroup(nameOfSubject, groupID) {
@@ -116,6 +125,33 @@ module.exports = class WorkScheduler {
         const nextIndex = choiceIndex + 1;
         if (nextIndex < student.choices.length) {
             student.choices[nextIndex].numberOfPoints += 0
+        }
+    }
+
+    assignLeftovers() {
+
+        const obligatorySubjects = this.subjects.map((subject) => {
+            return subject.nameOfSubject
+        })
+        let groupsWithFreePlaces = [];
+        this.subjects.forEach((subject) => {
+            groupsWithFreePlaces.push(... subject.groups.filter((group) => {
+                return group.numberOfPeople > 0
+            }))
+        })
+
+       this.students.forEach((student) => this.assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlaces))
+    }
+
+    assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlaces) {
+        if (obligatorySubjects.length != student.subjectsIds.length) {
+            const studentAssignedSubjectsNames = student.subjectsIds.map((subjectsId) => {return subjectsId.nameOfSubject} )
+            let notAssignedSubjects = obligatorySubjects.filter((obligatorySubject) => { return !studentAssignedSubjectsNames.includes(obligatorySubject)})
+            notAssignedSubjects.forEach( (notAssignedSubject) => {
+                groupsWithFreePlaces = groupsWithFreePlaces.filter((groupWithFreePlaces) => {return groupWithFreePlaces.numberOfPeople > 0})
+                let sameSubjectGroup = groupsWithFreePlaces.find( (groupWithFreePlaces) => { return groupWithFreePlaces.nameOfSubject === notAssignedSubject.nameOfSubject} )
+                this.assignStudentToGroup(sameSubjectGroup,student, notAssignedSubject);
+            })
         }
     }
 }
