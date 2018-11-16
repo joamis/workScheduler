@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 
-
 const Group = new mongoose.Schema({
     date: String,
-    numberOfPeople: Number,
-    groupID: Number
+    numberOfPeople: Number
 });
 
 const SubjectSchema = new mongoose.Schema({
@@ -16,6 +14,9 @@ const SubjectSchema = new mongoose.Schema({
     groups: [Group]
 });
 
+module.exports.getAllGroups = (callback) => {
+    Group.find(callback);
+}
 
 const Subject = mongoose.model('Subject', SubjectSchema);
 module.exports = Subject;
