@@ -22,7 +22,7 @@ module.exports = class WorkScheduler {
 
     calculateWorkSchedule() {
         while (this.choicesQueue.length) {
-            console.log('  -------------------------- ')
+           // console.log('  -------------------------- ')
             let studentAndChoice = this.choicesQueue.pop()
             const c = studentAndChoice.choice
             let debugMsg = 'Student: ' + studentAndChoice.student.name + '|' + c.nameOfSubject + '-' + c.groupID + '-> ' + c.numberOfPoints
@@ -31,10 +31,10 @@ module.exports = class WorkScheduler {
             } else {
                 this.processSingleChoice(studentAndChoice)
             }
-            console.log(debugMsg)
-            console.log("Items left: " + this.choicesQueue.length)
+           // console.log(debugMsg)
+            //console.log("Items left: " + this.choicesQueue.length)
            // console.log(this.choicesToIgnore)
-            console.log('  -------------------------- \n')
+           // console.log('  -------------------------- \n')
         }
 
        this.assignLeftovers()
@@ -63,8 +63,8 @@ module.exports = class WorkScheduler {
         }
         else
         {
-            console.log('!! Not assigned')
-            console.log(associatedGroup)
+         //   console.log('!! Not assigned')
+           // console.log(associatedGroup)
             return false
         }
     }
@@ -73,9 +73,8 @@ module.exports = class WorkScheduler {
         associatedGroup.numberOfPeople -= 1
         student.subjectsIds.push({
             'nameOfSubject': nameOfSubject,
-            'groupID': associatedGroup.groupID
+           'groupID': associatedGroup.groupID
         })
-        console.log('!!Assigned -> places left ' + associatedGroup.numberOfPeople)
     }
 
     findAssociatedGroup(nameOfSubject, groupID) {
@@ -150,6 +149,7 @@ module.exports = class WorkScheduler {
             notAssignedSubjects.forEach( (notAssignedSubject) => {
                 groupsWithFreePlaces = groupsWithFreePlaces.filter((groupWithFreePlaces) => {return groupWithFreePlaces.numberOfPeople > 0})
                 let sameSubjectGroup = groupsWithFreePlaces.find( (groupWithFreePlaces) => { return groupWithFreePlaces.nameOfSubject === notAssignedSubject.nameOfSubject} )
+                console.log(sameSubjectGroup)
                 this.assignStudentToGroup(sameSubjectGroup,student, notAssignedSubject);
             })
         }

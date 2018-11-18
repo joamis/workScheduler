@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const Group = new mongoose.Schema({
     date: String,
-    numberOfPeople: Number
+    numberOfPeople: Number,
+    groupID: Number
 });
 
 const SubjectSchema = new mongoose.Schema({
