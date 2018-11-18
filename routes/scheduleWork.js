@@ -5,16 +5,32 @@ const Student = require('../models/Student');
 
 module.exports = server => {
 
-    server.get('/scheduleWork', async (req, res, next) => {
+    server.post('/scheduleWork', async (req, res, next) => {
         try {
-            const Subjects = await Subject.find({});
-            const Students = await Student.find({});
-            let workScheduler = new WorkScheduler(Subjects, Students)
+            const subjects = await Subject.find({});
+            let students = await Student.find({});
+            let workScheduler = new WorkScheduler(subjects, students)
             let calculatedWorkSchedule = workScheduler.calculateWorkSchedule()
-            res.send(Students);
+            students.forEach((student) => student.save((err) => {
+                if (err) {
+                    console.log(err)
+                }
+            }))
+            res.send(students)
             next();
         } catch (err) {
             return next(new errors.InvalidContentError(err));
         }
     });
+
+    server.get('/scheduleWork', async (req, res, next) => {
+        try {
+            const Students = await Student.find({});
+            res.send(Students)
+            next();
+        } catch (err) {
+            return next(new errors.InvalidContentError(err));
+        }
+    });
+
 }

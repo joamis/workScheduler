@@ -1,17 +1,7 @@
 const errors = require('restify-errors');
 let Subject = require('../models/Subject')
+let Group = require('../models/Groups')
 
-
-class Group
-{
-    constructor(nameOfSubject, date, numberOfPeople, groupID)
-    {
-        this.nameOfSubject = nameOfSubject;
-        this.date = date;
-        this.numberOfPeople = numberOfPeople;
-        this.groupID = groupID;
-    }
-}
 module.exports = server => {
 
     server.get('/groups', async (req, res, next) => {

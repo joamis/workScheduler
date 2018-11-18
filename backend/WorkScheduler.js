@@ -22,8 +22,8 @@ module.exports = class WorkScheduler {
 
     calculateWorkSchedule() {
         while (this.choicesQueue.length) {
-           // console.log('  -------------------------- ')
             let studentAndChoice = this.choicesQueue.pop()
+            console.log(studentAndChoice);
             const c = studentAndChoice.choice
             let debugMsg = 'Student: ' + studentAndChoice.student.name + '|' + c.nameOfSubject + '-' + c.groupID + '-> ' + c.numberOfPoints
             if (this.choicesToIgnore.includes(studentAndChoice.choice)) {
@@ -31,13 +31,13 @@ module.exports = class WorkScheduler {
             } else {
                 this.processSingleChoice(studentAndChoice)
             }
-           // console.log(debugMsg)
+           //console.log(debugMsg)
             //console.log("Items left: " + this.choicesQueue.length)
            // console.log(this.choicesToIgnore)
            // console.log('  -------------------------- \n')
         }
-
        this.assignLeftovers()
+
     }
 
     processSingleChoice(studentChoice) {
@@ -73,7 +73,7 @@ module.exports = class WorkScheduler {
         associatedGroup.numberOfPeople -= 1
         student.subjectsIds.push({
             'nameOfSubject': nameOfSubject,
-           'groupID': associatedGroup.groupID
+            'groupID': associatedGroup.groupID
         })
     }
 
