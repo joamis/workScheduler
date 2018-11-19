@@ -1,10 +1,13 @@
 const errors = require('restify-errors');
 let Subject = require('../models/Subject')
-let Group = require('../models/Groups')
+let Group = require('../models/Groups');
+const rjwt = require('restify-jwt-community');
+const config = require('../config')
+
 
 module.exports = server => {
 
-    server.get('/groups', async (req, res, next) => {
+    server.get('/groups' , async (req, res, next) => {
 
         try {
 

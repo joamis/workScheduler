@@ -1,9 +1,11 @@
 const errors = require('restify-errors');
 const Student = require('../models/Student')
+const rjwt = require('restify-jwt-community');
+const config = require('../config')
 
 module.exports = server => {
 
-    server.get('/preferences/:id', async (req, res, next) => {
+    server.get('/preferences/:id' , async (req, res, next) => {
         try {
             const student = await Student.findById(req.params.id);
             const preferences = student.choices;
@@ -14,7 +16,7 @@ module.exports = server => {
         }
     });
 
-    server.post('/preferences/:id', async (req, res, next) => {
+    server.post('/preferences/:id',async (req, res, next) => {
         try {
             const preferences = req.body
             console.log('begin')

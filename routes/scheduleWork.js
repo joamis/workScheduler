@@ -2,6 +2,8 @@ const errors = require('restify-errors');
 const WorkScheduler = require('../backend/WorkScheduler');
 const Subject = require('../models/Subject');
 const Student = require('../models/Student');
+const rjwt = require('restify-jwt-community');
+const config = require('../config')
 
 module.exports = server => {
 
@@ -23,7 +25,7 @@ module.exports = server => {
         }
     });
 
-    server.get('/scheduleWork', async (req, res, next) => {
+    server.get('/scheduleWork', rjwt({secret: config.JWT_SECRET}) ,async (req, res, next) => {
         try {
             const Students = await Student.find({});
             res.send(Students)

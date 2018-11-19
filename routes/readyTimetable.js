@@ -2,10 +2,13 @@ const errors = require('restify-errors');
 const Student = require('../models/Student');
 const Subject = require('../models/Subject')
 let Group = require('../models/Groups')
+const rjwt = require('restify-jwt-community');
+const config = require('../config')
+
 
 module.exports = server => {
 
-    server.get('/readyTimetable/:id', async (req, res, next) => {
+    server.get('/readyTimetable/:id',async (req, res, next) => {
 
         try {
             const student = await Student.findById(req.params.id);

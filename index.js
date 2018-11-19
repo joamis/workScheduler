@@ -2,6 +2,8 @@ const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
 mongoose.set('debug', true);
+const rjwt = require('restify-jwt-community')
+
 const server = restify.createServer();
 
 // Middleware
@@ -14,6 +16,8 @@ server.use(
     }
 );
 
+//Protect routes
+//server.use(rjwt({secret: config.JWT_SECRET}).unless({path: ['/auth']}))
 
 server.listen(config.PORT, () => {
     mongoose.set('useFindAndModify', false);
@@ -32,6 +36,7 @@ db.once('open', () => {
     require('./routes/groups')(server);
     require('./routes/scheduleWork')(server);
     require('./routes/readyTimetable')(server);
+    require('./routes/users')(server);
     console.log(`Server started on port ${config.PORT}`);
 });
 

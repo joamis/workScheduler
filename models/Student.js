@@ -35,7 +35,14 @@ const StudentSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    subjectsIds: [SubjectID]
+    subjectsIds: [SubjectID],
+
+    username: {
+        type: String,
+        unique : true,
+        required: true
+    }
+
 });
 
 const Student = mongoose.model('Student', StudentSchema);

@@ -1,9 +1,9 @@
 const errors = require('restify-errors');
 const Student = require('../models/Student');
-const config = require('../config');
 
 module.exports = server => {
-    // Get Students
+
+
     server.get('/Students', async (req, res, next) => {
 
         try {
