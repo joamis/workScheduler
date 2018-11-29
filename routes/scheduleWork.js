@@ -11,6 +11,7 @@ module.exports = server => {
         try {
             const subjects = await Subject.find({});
             let students = await Student.find({});
+            students.forEach((student) => { student.subjectsIds = []})
             let workScheduler = new WorkScheduler(subjects, students)
             let calculatedWorkSchedule = workScheduler.calculateWorkSchedule()
             students.forEach((student) => student.save((err) => {
@@ -19,6 +20,23 @@ module.exports = server => {
                 }
             }))
             res.send(students)
+            next();
+        } catch (err) {
+            return next(new errors.InvalidContentError(err));
+        }
+    });
+
+    server.post('/resetScheduleWork', async (req, res, next) => {
+        try {
+            let students = await Student.find({});
+            console.log("ASD")
+            students.forEach((student) => { student.subjectsIds = []})
+            students.forEach((student) => student.save((err) => {
+                if (err) {
+                    console.log(err)
+                }
+            }))
+            res.send("success")
             next();
         } catch (err) {
             return next(new errors.InvalidContentError(err));

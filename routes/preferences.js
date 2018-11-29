@@ -31,7 +31,7 @@ module.exports = server => {
                 }
                 else
                 {
-                    res.send(updatedStudent)
+                        res.send(updatedStudent)
                 }
             })
             next();

@@ -40,7 +40,7 @@ module.exports = server => {
     });
 
     server.post('/auth', async (req, res, next) => {
-        const {username, password} = req.body;
+        const {username, password} = JSON.parse(req.body);
 
         student = await Student.findOne({username})
 
@@ -50,6 +50,7 @@ module.exports = server => {
             //create token
 
             const token = jwt.sign(user.toJSON(), config.JWT_SECRET, {
+
                 expiresIn: '10000m'
             });
 

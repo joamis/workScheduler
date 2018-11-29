@@ -93,16 +93,16 @@ module.exports = class WorkScheduler {
 
         switch (studentChoiceIndex) {
             case 0:
-                student.levelOfSatisfaction =+ 10
+                student.levelOfSatisfaction += 10
                 break;
             case 1:
-                student.levelOfSatisfaction =+ 5
+                student.levelOfSatisfaction += 5
                 break;
             case 2:
-                student.levelOfSatisfaction =+ 2
+                student.levelOfSatisfaction += 2
                 break;
             default:
-                student.levelOfSatisfaction =+ 1
+                student.levelOfSatisfaction += 1
         }
 
     }
