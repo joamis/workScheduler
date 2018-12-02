@@ -129,31 +129,34 @@ module.exports = class WorkScheduler {
         const obligatorySubjects = this.subjects.map((subject) => {
             return subject.nameOfSubject
         })
-        let groupsWithFreePlaces = [];
+        let groupsWithFreePlacesPerSubject = new Map();
         this.subjects.forEach((subject) => {
-            groupsWithFreePlaces.push(... subject.groups.filter((group) => {
-                return group.numberOfPeople > 0
-            }))
-           // console.log(subject.nameOfSubject + gr)
-        })
-       // console.log(groupsWithFreePlaces)
+                const groupsWithFreePlacesSingleSubject = subject.groups.filter((group) => {
+                    return group.numberOfPeople > 0
+                })
+                groupsWithFreePlacesPerSubject.set(subject.nameOfSubject, groupsWithFreePlacesSingleSubject)
+            }
+        );
+       console.log(groupsWithFreePlacesPerSubject)
        this.students.forEach((student) => {
 
-           this.assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlaces)
-           groupsWithFreePlaces = groupsWithFreePlaces.filter((groupWithFreePlaces) => {return groupWithFreePlaces.numberOfPeople > 0})
+           this.assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlacesPerSubject)
+           for (let [subject, subjectGroupsWithFreePlaces] of groupsWithFreePlacesPerSubject) {
+               groupsWithFreePlacesPerSubject.set(subject, subjectGroupsWithFreePlaces.filter((groupWithFreePlace) => {return groupWithFreePlace.numberOfPeople > 0}))
+           }
 
 
        })
     }
 
-    assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlaces) {
-        console.log(student.subjectsIds.length)
-        if (obligatorySubjects.length != student.subjectsIds.length) {
+    assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlacesSingleSubject) {
+        if (obligatorySubjects.length !== student.subjectsIds.length) {
             const studentAssignedSubjectsNames = student.subjectsIds.map((subjectsId) => {return subjectsId.nameOfSubject} )
             let notAssignedSubjects = obligatorySubjects.filter((obligatorySubject) => { return !studentAssignedSubjectsNames.includes(obligatorySubject)})
             notAssignedSubjects.forEach( (notAssignedSubject) => {
-                let sameSubjectGroup = groupsWithFreePlaces.find( (groupWithFreePlaces) => { return groupWithFreePlaces.nameOfSubject === notAssignedSubject.nameOfSubject} )
-              //  console.log(student.username + sameSubjectGroup + notAssignedSubject)
+                let sameSubjectGroup = groupsWithFreePlacesSingleSubject.get(notAssignedSubject)[0]
+                if (student.username == 'jan') {
+                console.log(student.username + sameSubjectGroup + notAssignedSubject)}
                 this.assignStudentToGroup(sameSubjectGroup,student, notAssignedSubject);
             })
         }
