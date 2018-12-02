@@ -5,6 +5,7 @@ const Student = require('../models/Student');
 const rjwt = require('restify-jwt-community');
 const config = require('../config')
 
+
 module.exports = server => {
 
     server.post('/scheduleWork', async (req, res, next) => {
@@ -29,7 +30,6 @@ module.exports = server => {
     server.post('/resetScheduleWork', async (req, res, next) => {
         try {
             let students = await Student.find({});
-            console.log("ASD")
             students.forEach((student) => { student.subjectsIds = []})
             students.forEach((student) => student.save((err) => {
                 if (err) {

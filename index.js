@@ -1,7 +1,7 @@
 const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
-mongoose.set('debug', true);
+mongoose.set('debug', false);
 const rjwt = require('restify-jwt-community')
 
 const server = restify.createServer();

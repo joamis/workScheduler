@@ -10,7 +10,6 @@ exports.authenticate = (username, password) => {
 
 
             bcrypt.compare(password, user.password, (err, isMatch) => {
-                console.log('aaaaaaaaaaaaaaaaaaaaaa')
                 if (err) throw err;
                 if (isMatch) {
                     resolve(user);

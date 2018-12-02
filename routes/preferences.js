@@ -19,9 +19,6 @@ module.exports = server => {
     server.post('/preferences/:id',async (req, res, next) => {
         try {
             const preferences = req.body
-            console.log('begin')
-            console.log(preferences )
-            console.log('end')
             let student = await Student.findById(req.params.id);
             student.choices = JSON.parse(preferences)
             student.save((err, updatedStudent) => {

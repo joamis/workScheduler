@@ -9,7 +9,6 @@ const Student = require('../models/Student')
 
 module.exports = server => {
     server.post('/register', async (req, res, next) => {
-        console.log("ASD")
         const {username, password} = JSON.parse(req.body)
 
         const student = await Student.findOne({username})
