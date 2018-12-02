@@ -81,27 +81,29 @@ module.exports = class WorkScheduler {
 
 
         let student = studentChoice.student;
-        student.levelOfSatisfaction==0;
         let numberOfPoints = studentChoice.choice.numberOfPoints;
 
         let studentChoiceIndex = choicesForSameSubject.findIndex( (choice) => {
             return choice.numberOfPoints === numberOfPoints;
         });
 
+        const satisfactionRatio = numberOfPoints / 100;
+
+        let levelOfSatisfactionIncrease = 0
         switch (studentChoiceIndex) {
             case 0:
-                student.levelOfSatisfaction += 10
+                levelOfSatisfactionIncrease += 100
                 break;
             case 1:
-                student.levelOfSatisfaction += 5
+                levelOfSatisfactionIncrease += 50
                 break;
             case 2:
-                student.levelOfSatisfaction += 2
+                levelOfSatisfactionIncrease += 20
                 break;
             default:
-                student.levelOfSatisfaction += 1
+                levelOfSatisfactionIncrease += 10
         }
-
+        student.levelOfSatisfaction += (satisfactionRatio * levelOfSatisfactionIncrease);
     }
 
     findSameSubjectChoices(student, nameOfSubject) {
