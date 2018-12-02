@@ -12,7 +12,10 @@ module.exports = server => {
         try {
             const subjects = await Subject.find({});
             let students = await Student.find({});
-            students.forEach((student) => { student.subjectsIds = []})
+            students.forEach((student) => {
+                student.subjectsIds = [];
+                student.levelOfSatisfaction = 0;
+            })
             let workScheduler = new WorkScheduler(subjects, students)
             let calculatedWorkSchedule = workScheduler.calculateWorkSchedule()
             students.forEach((student) => student.save((err) => {
@@ -30,7 +33,10 @@ module.exports = server => {
     server.post('/resetScheduleWork', async (req, res, next) => {
         try {
             let students = await Student.find({});
-            students.forEach((student) => { student.subjectsIds = []})
+            students.forEach((student) => {
+                student.subjectsIds = [];
+                student.levelOfSatisfaction = 0;
+            })
             students.forEach((student) => student.save((err) => {
                 if (err) {
                     console.log(err)
