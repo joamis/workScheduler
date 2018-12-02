@@ -87,7 +87,10 @@ module.exports = class WorkScheduler {
             return choice.numberOfPoints === numberOfPoints;
         });
 
-        const satisfactionRatio = numberOfPoints / 100;
+        let totalNumberOfPointsPerSubject = 0
+        choicesForSameSubject.forEach((choiceForSameSubject) => totalNumberOfPointsPerSubject += choiceForSameSubject.numberOfPoints);
+
+        const satisfactionRatio = totalNumberOfPointsPerSubject / 100;
 
         let levelOfSatisfactionIncrease = 0
         switch (studentChoiceIndex) {
