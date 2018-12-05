@@ -7,13 +7,15 @@ class StudentChoice
     {
         this.student = student;
         this.choice = choice
+        this.additionalPoints = 0
     }
 }
+
 module.exports = class WorkScheduler {
     constructor(subjects, students) {
-        let choicesList = []
-        students.forEach((student) => { student.choices.forEach( (choice) => { choicesList.push(new StudentChoice(student, choice)) } ) })
-        this.choicesQueue = new TinyQueue(choicesList, function (a, b) {
+        this.choicesList = []
+        students.forEach((student) => { student.choices.forEach( (choice) => { this.choicesList.push(new StudentChoice(student, choice)) } ) })
+        this.choicesQueue = new TinyQueue(this.choicesList.slice(), function (a, b) {
             return b.choice.numberOfPoints - a.choice.numberOfPoints} );
         this.subjects = subjects
         this.students = students
@@ -47,6 +49,9 @@ module.exports = class WorkScheduler {
         else
         {
             this.increaseNextStudentPreferenceValue(studentChoice.student, studentChoice.choice)
+            if (studentChoice.additionalPoints > 0) {
+                this.choicesToIgnore.push(studentChoice.choice)
+            }
         }
     }
 
@@ -90,7 +95,7 @@ module.exports = class WorkScheduler {
         let totalNumberOfPointsPerSubject = 0
         choicesForSameSubject.forEach((choiceForSameSubject) => totalNumberOfPointsPerSubject += choiceForSameSubject.numberOfPoints);
 
-        const satisfactionRatio = totalNumberOfPointsPerSubject / 100;
+        const satisfactionRatio = totalNumberOfPointsPerSubject / (100 + studentChoice.additionalPoints);
 
         let levelOfSatisfactionIncrease = 0
         switch (studentChoiceIndex) {
@@ -119,13 +124,18 @@ module.exports = class WorkScheduler {
     }
 
     increaseNextStudentPreferenceValue(student, processedChoice) {
-        student.choices.sort((a,b) => {
+        let studentChoices = this.choicesList.filter((choice) => { return choice.student === student})
+        studentChoices.sort((a,b) => {
             return (a.numberOfPoints < b.numberOfPoints)
         })
-        const choiceIndex = student.choices.findIndex( (choice) => {return choice === processedChoice})
+        const choiceIndex = studentChoices.findIndex( (studentChoice) => {return studentChoice.choice === processedChoice})
         const nextIndex = choiceIndex + 1;
         if (nextIndex < student.choices.length) {
-            student.choices[nextIndex].numberOfPoints += 0
+            let studentChoiceToIncrease = studentChoices[nextIndex];
+            studentChoiceToIncrease.choice.numberOfPoints += 20
+            studentChoiceToIncrease.additionalPoints += 20
+            //Lower points choices will be ignored anyway
+            this.choicesQueue.push(studentChoiceToIncrease)
         }
     }
 
@@ -142,7 +152,6 @@ module.exports = class WorkScheduler {
                 groupsWithFreePlacesPerSubject.set(subject.nameOfSubject, groupsWithFreePlacesSingleSubject)
             }
         );
-       console.log(groupsWithFreePlacesPerSubject)
        this.students.forEach((student) => {
 
            this.assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlacesPerSubject)
@@ -160,8 +169,6 @@ module.exports = class WorkScheduler {
             let notAssignedSubjects = obligatorySubjects.filter((obligatorySubject) => { return !studentAssignedSubjectsNames.includes(obligatorySubject)})
             notAssignedSubjects.forEach( (notAssignedSubject) => {
                 let sameSubjectGroup = groupsWithFreePlacesSingleSubject.get(notAssignedSubject)[0]
-                if (student.username == 'jan') {
-                console.log(student.username + sameSubjectGroup + notAssignedSubject)}
                 this.assignStudentToGroup(sameSubjectGroup,student, notAssignedSubject);
             })
         }
