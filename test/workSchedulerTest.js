@@ -29,32 +29,75 @@ function createStudent(name, prefArrays) {
 }
 
 function createSubject(subjectName, numbersOfPeopleInGroups) {
-    let groups = []
-    let groupIndex = 1
+    let groups = [];
+    let groupIndex = 1;
     numbersOfPeopleInGroups.forEach((numbersOfPeopleInGroup) => {
         groups.push(new Group({date: '', numberOfPeople: numbersOfPeopleInGroup, groupID: groupIndex}))
         groupIndex += 1
-    })
+    });
     return new Subject({nameOfSubject: subjectName, groups: groups})
+}
+
+function matchImpl(associatedStudent, studentName, allocations) {
+    let allocationsMap = new Map();
+    allocations.forEach((allocation) => {
+        allocationsMap.set(allocation[0], allocation[1])
+    });
+    if (associatedStudent.choices.length !== allocationsMap.size) {
+        return false;
+    }
+    return !associatedStudent.choices.some((choice) => {
+        let allocation = allocationsMap.get(choice.nameOfSubject);
+        if (!allocation || allocation !== choice.groupID) {
+            return true
+        }
+        return false
+    });
+}
+
+function match(students, studentName, allocations) {
+    let associatedStudent = students.find((student) => {
+        return student.name = studentName
+    });
+    const result = matchImpl(associatedStudent, studentName, allocations)
+    if (!result) {
+        allocations.sort();
+        associatedStudent.choices.sort();
+        console.log('Expected:')
+        let expectedMap = new Map();
+        allocations.forEach((allocation) => {
+            expectedMap.set(allocation[0], allocation[1])
+        });
+        console.log(expectedMap)
+        console.log('Actual:')
+        let actualMap = new Map();
+        associatedStudent.choices.forEach((choice) => {
+            actualMap.set(choice.nameOfSubject, choice.groupID)
+        });
+        console.log(actualMap)
+    }
+    assert.equal(result, true)
 }
 
 describe('WorkScheduler', () => {
     it('Everybody should be assigned where they want to be', () => {
-        let students = []
-        let subjects = []
+        let students = [];
+        let subjects = [];
 
-        students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]))
-        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]))
-        students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]))
+        students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]));
+        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
+        students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
 
-        subjects.push(createSubject('WDI', [1, 2]))
-        subjects.push(createSubject('BST', [1, 2]))
+        subjects.push(createSubject('WDI', [1, 2]));
+        subjects.push(createSubject('SCS', [1, 2]));
 
-
-        let workScheduler = new WorkScheduler(subjects, students)
+        let workScheduler = new WorkScheduler(subjects, students);
         workScheduler.calculateWorkSchedule();
-        console.log(students[0].subjectsIds)
-        assert.equal(true, true)
+
+
+        match(students, 'Karol', [["WDI", 1], ["SCS", 2]]);
+        match(students, 'Jan', [["WDI", 1], ["SCS", 1]]);
+        match(students, 'Piotr', [["WDI", 2], ["SCS", 1]]);
     })
-})
+});
 

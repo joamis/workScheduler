@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e8cc6b1-dc98-4fca-9485-4fd052cb1b77" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/node_modules/.bin/_mocha" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/.bin/he" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/.bin/mocha" afterDir="false" />
@@ -220,6 +221,8 @@
       <change afterPath="$PROJECT_DIR$/test/workSchedulerTest2.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test/workSchedulerTest3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+>>>>>>> tests with assertions
       <change beforePath="$PROJECT_DIR$/test/workSchedulerTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/workSchedulerTest.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -258,6 +261,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/groups.js">
@@ -350,6 +354,126 @@
         </entry>
       </file>
     </leaf>
+=======
+    <splitter split-orientation="horizontal" split-proportion="0.49289617">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/models/Student.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="15">
+                  <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="68" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/models/Preference.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="240">
+                  <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/models/Subject.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="165">
+                  <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/models/Group.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="135">
+                  <caret line="9" column="29" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="29" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/models/Groups.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="30">
+                  <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/package.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="105">
+                  <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/backend/WorkScheduler.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="170">
+                  <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/readyTimetable.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="150">
+                  <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/scheduleWork.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="30">
+                  <caret line="2" selection-start-line="2" selection-end-line="3" selection-end-column="45" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/students.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="324">
+                  <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="57" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test/workSchedulerTest.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1362">
+                  <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/node_modules/chai/chai.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="192">
+                  <caret line="4302" column="2" selection-start-line="4302" selection-start-column="2" selection-end-line="4302" selection-end-column="2" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+>>>>>>> tests with assertions
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -546,7 +670,27 @@
       </test-names>
       <method v="2" />
     </configuration>
+<<<<<<< HEAD
     <configuration name="WorkScheduler.WorkScheduler should assign" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="WorkScheduler.Karol should be assigned to WDI and BST" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/workSchedulerTest.js</test-file>
+      <test-names>
+        <name value="WorkScheduler" />
+        <name value="Karol should be assigned to WDI and BST" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="WorkScheduler.WorkScheduler should assign" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+>>>>>>> tests with assertions
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -582,6 +726,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Mocha.test/workSchedulerTest.js" />
+        <item itemvalue="Mocha.WorkScheduler.Karol should be assigned to WDI and BST" />
         <item itemvalue="Mocha.WorkScheduler.WorkScheduler should assign" />
         <item itemvalue="Mocha.WorkScheduler" />
         <item itemvalue="Node.js.WorkScheduler.js" />
@@ -621,39 +766,43 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WorkScheduler_WorkScheduler_should_assign - 2018.12.08 at 15h 33m 06s.xml">
-      <configuration name="WorkScheduler.WorkScheduler should assign" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="WorkScheduler - 2018.12.08 at 15h 35m 07s.xml">
-      <configuration name="WorkScheduler" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="WorkScheduler - 2018.12.08 at 15h 35m 20s.xml">
-      <configuration name="WorkScheduler" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="WorkScheduler_WorkScheduler_should_assign - 2018.12.08 at 15h 35m 39s.xml">
-      <configuration name="WorkScheduler.WorkScheduler should assign" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="WorkScheduler - 2018.12.08 at 15h 35m 54s.xml">
-      <configuration name="WorkScheduler" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 15h 43m 11s.xml">
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 02m 09s.xml">
       <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="WorkScheduler_WorkScheduler_should_assign - 2018.12.08 at 15h 51m 56s.xml">
-      <configuration name="WorkScheduler.WorkScheduler should assign" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 04m 15s.xml">
+      <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="WorkScheduler_WorkScheduler_should_assign - 2018.12.08 at 15h 54m 30s.xml">
-      <configuration name="WorkScheduler.WorkScheduler should assign" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 05m 06s.xml">
+      <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="WorkScheduler_WorkScheduler_should_assign - 2018.12.08 at 15h 54m 45s.xml">
-      <configuration name="WorkScheduler.WorkScheduler should assign" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 05m 19s.xml">
+      <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 16h 01m 30s.xml">
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 05m 26s.xml">
+      <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="WorkScheduler_Karol_should_be_assigned_to_WDI_and_BST - 2018.12.08 at 17h 05m 39s.xml">
+      <configuration name="WorkScheduler.Karol should be assigned to WDI and BST" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="WorkScheduler_Karol_should_be_assigned_to_WDI_and_BST - 2018.12.08 at 17h 05m 49s.xml">
+      <configuration name="WorkScheduler.Karol should be assigned to WDI and BST" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="WorkScheduler_Karol_should_be_assigned_to_WDI_and_BST - 2018.12.08 at 17h 05m 54s.xml">
+      <configuration name="WorkScheduler.Karol should be assigned to WDI and BST" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 07m 58s.xml">
+      <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="test_workSchedulerTest_js - 2018.12.08 at 17h 08m 15s.xml">
       <configuration name="test/workSchedulerTest.js" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="183213000" />
+=======
+    <option name="totallyTimeSpent" value="184264000" />
+>>>>>>> tests with assertions
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -668,7 +817,11 @@
     <frame x="993" y="25" width="927" height="1055" extended-state="4" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4887097" visible="true" weight="0.098451324" />
+=======
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4887097" visible="true" weight="0.11584699" />
+>>>>>>> tests with assertions
       <window_info id="Structure" order="1" sideWeight="0.5112903" side_tool="true" weight="0.13770492" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -855,13 +1008,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Preference.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Student.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -883,8 +1029,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/Preference.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/chai/chai.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="4302" column="2" selection-start-line="4302" selection-start-column="2" selection-end-line="4302" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/workSchedulerTest.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="231">
           <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
         </state>
@@ -901,6 +1062,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="47" column="74" selection-start-line="47" selection-start-column="74" selection-end-line="47" selection-end-column="74" />
+=======
+        <state relative-caret-position="1362">
+          <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
+>>>>>>> tests with assertions
         </state>
       </provider>
     </entry>
