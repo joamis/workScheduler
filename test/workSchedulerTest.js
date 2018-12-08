@@ -57,7 +57,7 @@ function matchImpl(associatedStudent, studentName, allocations) {
 
 function match(students, studentName, allocations) {
     let associatedStudent = students.find((student) => {
-        return student.name = studentName
+        return student.name === studentName
     });
     const result = matchImpl(associatedStudent, studentName, allocations)
     if (!result) {
@@ -73,8 +73,8 @@ function match(students, studentName, allocations) {
         console.log(expectedMap)
         console.log('Actual:')
         let actualMap = new Map();
-        associatedStudent.choices.forEach((choice) => {
-            actualMap.set(choice.nameOfSubject, choice.groupID)
+        associatedStudent.subjectsIds.forEach((subjectId) => {
+            actualMap.set(subjectId.nameOfSubject, subjectId.groupID)
         });
         console.log(actualMap)
     }
@@ -89,7 +89,6 @@ describe('WorkScheduler', () => {
         students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]));
         students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
         students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
-
 
         subjects.push(createSubject('WDI', [2, 1]))
         subjects.push(createSubject('SCS', [2, 1]))
