@@ -90,8 +90,9 @@ describe('WorkScheduler', () => {
         students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
         students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
 
-        subjects.push(createSubject('WDI', [2, 1]));
-        subjects.push(createSubject('SCS', [2, 1]));
+
+        subjects.push(createSubject('WDI', [2, 1]))
+        subjects.push(createSubject('SCS', [2, 1]))
 
         let workScheduler = new WorkScheduler(subjects, students);
         workScheduler.calculateWorkSchedule();

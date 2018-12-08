@@ -50,7 +50,7 @@ describe('WorkScheduler', () => {
         students.push(createStudent('Maja', [["WDI", 2, 25]]))
 
         subjects.push(createSubject('WDI', [1, 2]))
-        subjects.push(createSubject('BST', [1, 2]))
+        subjects.push(createSubject('SCS', [1, 2]))
 
 
         let workScheduler = new WorkScheduler(subjects, students)
