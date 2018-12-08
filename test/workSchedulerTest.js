@@ -62,7 +62,9 @@ function match(students, studentName, allocations) {
     const result = matchImpl(associatedStudent, studentName, allocations)
     if (!result) {
         allocations.sort();
-        associatedStudent.choices.sort();
+        associatedStudent.choices.sort((choiceA, choiceB) => {
+            return choiceA.nameOfSubject.localeCompare(choiceB.nameOfSubject)});
+        console.log('Student: ' + associatedStudent.name)
         console.log('Expected:')
         let expectedMap = new Map();
         allocations.forEach((allocation) => {
@@ -88,8 +90,8 @@ describe('WorkScheduler', () => {
         students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
         students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
 
-        subjects.push(createSubject('WDI', [1, 2]));
-        subjects.push(createSubject('SCS', [1, 2]));
+        subjects.push(createSubject('WDI', [2, 1]));
+        subjects.push(createSubject('SCS', [2, 1]));
 
         let workScheduler = new WorkScheduler(subjects, students);
         workScheduler.calculateWorkSchedule();
