@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
-
-const Group = new mongoose.Schema({
-    date: String,
-    numberOfPeople: Number,
-    groupID: Number
-});
+const Group = require('../models/Group').GroupSchema;
 
 const SubjectSchema = new mongoose.Schema({
     nameOfSubject: {

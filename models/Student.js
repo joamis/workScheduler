@@ -1,23 +1,5 @@
 const mongoose = require('mongoose');
-
-const Preference = new mongoose.Schema({
-    nameOfSubject: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    groupID: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    numberOfPoints: {
-        type: Number,
-        default: 0,
-        required: true,
-        trim: true
-    }
-});
+const Preference = require('../models/Preference').PreferenceSchema;
 
 const SubjectID = new mongoose.Schema({
     nameOfSubject: String,
