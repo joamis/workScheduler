@@ -39,13 +39,13 @@ function createSubject(subjectName, numbersOfPeopleInGroups) {
 }
 
 describe('WorkScheduler', () => {
-    it('Everybody should be assigned where they want to be', () => {
+    it('3 nie dostaje sie na WDI1 ale dzieki dodatkowym punktom dostaje sie a WDI 2', () => {
         let students = []
         let subjects = []
 
-        students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]))
-        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]))
-        students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]))
+        students.push(createStudent('Karol', [["WDI", 1, 60], ["SCS", 1, 25]]))
+        students.push(createStudent('Jan', [["WDI", 1, 50], ["SCS", 1, 30]]))
+        students.push(createStudent('Jan', [["WDI", 1, 30], ["SCS", 1, 20]]))
 
         subjects.push(createSubject('WDI', [1, 2]))
         subjects.push(createSubject('BST', [1, 2]))
