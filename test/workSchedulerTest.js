@@ -1,4 +1,5 @@
 const assert = require('chai').assert;
+const expect = require('chai').expect;
 const WorkScheduler = require('../backend/WorkScheduler');
 const Subject = require('../models/Subject');
 const Group = require('../models/Group').Group;
@@ -55,7 +56,11 @@ function matchImpl(associatedStudent, studentName, allocations) {
     });
 }
 
-function match(students, studentName, allocations) {
+function areFloatsEqual(a, b) {
+    return (Math.abs(a - b) < 0.01)
+}
+
+function match(students, studentName, allocations, levelOfSatisfaction) {
     let associatedStudent = students.find((student) => {
         return student.name === studentName
     });
@@ -78,7 +83,18 @@ function match(students, studentName, allocations) {
         });
         console.log(actualMap)
     }
-    assert.equal(result, true)
+    assert.equal(result, true);
+    if (levelOfSatisfaction) {
+        const floatComparisionResult = areFloatsEqual(associatedStudent.levelOfSatisfaction, levelOfSatisfaction)
+        if (!floatComparisionResult) {
+            console.log('Student: ' + associatedStudent.name )
+            console.log('Level of satisfaction expected:')
+            console.log(levelOfSatisfaction)
+            console.log('Level of satisfaction actual:')
+            console.log(associatedStudent.levelOfSatisfaction)
+        }
+        assert.equal(floatComparisionResult, true)
+    }
 }
 
 describe('WorkScheduler_1', () => {
@@ -97,9 +113,9 @@ describe('WorkScheduler_1', () => {
         workScheduler.calculateWorkSchedule();
 
 
-        match(students, 'Karol', [["WDI", 1], ["SCS", 2]]);
-        match(students, 'Jan', [["WDI", 1], ["SCS", 1]]);
-        match(students, 'Piotr', [["WDI", 2], ["SCS", 1]]);
+        match(students, 'Karol', [["WDI", 1], ["SCS", 2]], 100);
+        match(students, 'Jan', [["WDI", 1], ["SCS", 1]], 100);
+        match(students, 'Piotr', [["WDI", 2], ["SCS", 1]], 100);
     })
 });
 
@@ -119,9 +135,9 @@ describe('WorkScheduler_2', () => {
         let workScheduler = new WorkScheduler(subjects, students)
         workScheduler.calculateWorkSchedule();
 
-        match(students, 'Krzys', [["WDI", 1], ["SCS", 2]]);
-        match(students, 'Zbys', [["WDI", 1], ["SCS", 1]]);
-        match(students, 'Janusz', [["WDI", 2], ["SCS", 1]]);
+        match(students, 'Krzys', [["WDI", 1], ["SCS", 2]], 75);
+        match(students, 'Zbys', [["WDI", 1], ["SCS", 1]], 100);
+        match(students, 'Janusz', [["WDI", 2], ["SCS", 1]], 27.5);
     })
 });
 
@@ -144,11 +160,11 @@ describe('WorkScheduler_3', () => {
         workScheduler.calculateWorkSchedule();
         assert.equal(true, true)
 
-        match(students, 'Anna', [["WDI", 1], ["SCS", 1]]);
-        match(students, 'Karolina', [["WDI", 1], ["SCS", 1]]);
-        match(students, 'Maria', [["WDI", 2], ["SCS", 3]]);
-        match(students, 'Monika', [["WDI", 3], ["SCS", 2]]);
-        match(students, 'Maja', [["WDI", 2], ["SCS", 2]]);
+        match(students, 'Anna', [["WDI", 1], ["SCS", 1]],100);
+        match(students, 'Karolina', [["WDI", 1], ["SCS", 1]],100);
+        match(students, 'Maria', [["WDI", 2], ["SCS", 3]],32.5);
+        match(students, 'Monika', [["WDI", 3], ["SCS", 2]],72);
+        match(students, 'Maja', [["WDI", 2], ["SCS", 2]],100);
     })
 });
 
