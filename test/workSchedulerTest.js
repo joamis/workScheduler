@@ -82,7 +82,7 @@ function match(students, studentName, allocations) {
 }
 
 describe('WorkScheduler', () => {
-    it('Everybody should be assigned where they want to be', () => {
+    it('Wszyscy dostaja sie tam gdzie chca', () => {
         let students = [];
         let subjects = [];
 
@@ -101,6 +101,57 @@ describe('WorkScheduler', () => {
         match(students, 'Karol', [["WDI", 1], ["SCS", 2]]);
         match(students, 'Jan', [["WDI", 1], ["SCS", 1]]);
         match(students, 'Piotr', [["WDI", 2], ["SCS", 1]]);
+    })
+});
+
+describe('WorkScheduler', () => {
+    it('Janusz nie dostaje sie na WDI1 ale dzieki dodatkowym punktom dostaje sie a WDI 2', () => {
+        let students = []
+        let subjects = []
+
+        students.push(createStudent('Krzys', [["WDI", 1, 75], ["SCS", 1, 25]]))
+        students.push(createStudent('Zbys', [["WDI", 1, 70], ["SCS", 1, 30]]))
+        students.push(createStudent('Janusz', [["WDI", 1, 65], ["WDI", 2, 15], ["SCS", 1, 20]]))
+
+        subjects.push(createSubject('WDI', [2, 1]))
+        subjects.push(createSubject('SCS', [2, 1]))
+
+
+        let workScheduler = new WorkScheduler(subjects, students)
+        workScheduler.calculateWorkSchedule();
+        assert.equal(true, true)
+
+        match(students, 'Krzys', [["WDI", 1], ["SCS", 2]]);
+        match(students, 'Zbys', [["WDI", 1], ["SCS", 1]]);
+        match(students, 'Janusz', [["WDI", 2], ["SCS", 1]]);
+    })
+});
+
+describe('WorkScheduler', () => {
+    it('Maria nie dostaje sie na WDI 1 ani na SCS 1 ale dostaje sie na WDI 2 dzięki dodatkowym punktom', () => {
+        let students = []
+        let subjects = []
+
+        students.push(createStudent('Anna', [["WDI", 1, 60], ["SCS", 1, 40]]))
+        students.push(createStudent('Karolina', [["WDI", 1, 60], ["SCS", 1, 40]]))
+        students.push(createStudent('Maria', [["WDI", 1, 39], ["WDI", 2, 26], ["SCS", 1, 35]]))
+        students.push(createStudent('Monika', [["WDI", 2, 28], ["SCS", 2, 72]]))
+        students.push(createStudent('Maja', [["WDI", 2, 29], ["SCS", 2, 71]]))
+
+        subjects.push(createSubject('WDI', [2, 2, 1]))
+        subjects.push(createSubject('SCS', [2, 2, 1]))
+
+
+        let workScheduler = new WorkScheduler(subjects, students)
+        workScheduler.calculateWorkSchedule();
+        console.log(students[0].subjectsIds)
+        assert.equal(true, true)
+
+        match(students, 'Anna', [["WDI", 1], ["SCS", 1]]);
+        match(students, 'Karolina', [["WDI", 1], ["SCS", 1]]);
+        match(students, 'Maria', [["WDI", 2], ["SCS", 3]]);
+        match(students, 'Monika', [["WDI", 3], ["SCS", 2]]);
+        match(students, 'Maria', [["WDI", 2], ["SCS", 2]]);
     })
 });
 
