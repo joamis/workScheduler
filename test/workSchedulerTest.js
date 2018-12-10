@@ -43,10 +43,10 @@ function matchImpl(associatedStudent, studentName, allocations) {
     allocations.forEach((allocation) => {
         allocationsMap.set(allocation[0], allocation[1])
     });
-    if (associatedStudent.choices.length !== allocationsMap.size) {
+    if (associatedStudent.subjectsIds.length !== allocationsMap.size) {
         return false;
     }
-    return !associatedStudent.choices.some((choice) => {
+    return !associatedStudent.subjectsIds.some((choice) => {
         let allocation = allocationsMap.get(choice.nameOfSubject);
         if (!allocation || allocation !== choice.groupID) {
             return true
@@ -62,9 +62,9 @@ function match(students, studentName, allocations) {
     const result = matchImpl(associatedStudent, studentName, allocations)
     if (!result) {
         allocations.sort();
-        associatedStudent.choices.sort((choiceA, choiceB) => {
+        associatedStudent.subjectsIds.sort((choiceA, choiceB) => {
             return choiceA.nameOfSubject.localeCompare(choiceB.nameOfSubject)});
-        console.log('Student: ' + associatedStudent.name)
+        console.log('Student: ' + associatedStudent.name )
         console.log('Expected:')
         let expectedMap = new Map();
         allocations.forEach((allocation) => {
@@ -81,7 +81,7 @@ function match(students, studentName, allocations) {
     assert.equal(result, true)
 }
 
-describe('WorkScheduler', () => {
+describe('WorkScheduler_1', () => {
     it('Wszyscy dostaja sie tam gdzie chca', () => {
         let students = [];
         let subjects = [];
@@ -103,10 +103,10 @@ describe('WorkScheduler', () => {
     })
 });
 
-describe('WorkScheduler', () => {
+describe('WorkScheduler_2', () => {
     it('Janusz nie dostaje sie na WDI1 ale dzieki dodatkowym punktom dostaje sie a WDI 2', () => {
-        let students = []
-        let subjects = []
+        let students = [];
+        let subjects = [];
 
         students.push(createStudent('Krzys', [["WDI", 1, 75], ["SCS", 1, 25]]))
         students.push(createStudent('Zbys', [["WDI", 1, 70], ["SCS", 1, 30]]))
@@ -118,7 +118,6 @@ describe('WorkScheduler', () => {
 
         let workScheduler = new WorkScheduler(subjects, students)
         workScheduler.calculateWorkSchedule();
-        assert.equal(true, true)
 
         match(students, 'Krzys', [["WDI", 1], ["SCS", 2]]);
         match(students, 'Zbys', [["WDI", 1], ["SCS", 1]]);
@@ -126,10 +125,10 @@ describe('WorkScheduler', () => {
     })
 });
 
-describe('WorkScheduler', () => {
+describe('WorkScheduler_3', () => {
     it('Maria nie dostaje sie na WDI 1 ani na SCS 1 ale dostaje sie na WDI 2 dzięki dodatkowym punktom', () => {
-        let students = []
-        let subjects = []
+        let students = [];
+        let subjects = [];
 
         students.push(createStudent('Anna', [["WDI", 1, 60], ["SCS", 1, 40]]))
         students.push(createStudent('Karolina', [["WDI", 1, 60], ["SCS", 1, 40]]))
@@ -143,14 +142,13 @@ describe('WorkScheduler', () => {
 
         let workScheduler = new WorkScheduler(subjects, students)
         workScheduler.calculateWorkSchedule();
-        console.log(students[0].subjectsIds)
         assert.equal(true, true)
 
         match(students, 'Anna', [["WDI", 1], ["SCS", 1]]);
         match(students, 'Karolina', [["WDI", 1], ["SCS", 1]]);
         match(students, 'Maria', [["WDI", 2], ["SCS", 3]]);
         match(students, 'Monika', [["WDI", 3], ["SCS", 2]]);
-        match(students, 'Maria', [["WDI", 2], ["SCS", 2]]);
+        match(students, 'Maja', [["WDI", 2], ["SCS", 2]]);
     })
 });
 
