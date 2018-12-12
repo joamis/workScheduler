@@ -17,12 +17,12 @@ module.exports = server => {
                 student.levelOfSatisfaction = 0;
             })
             let workScheduler = new WorkScheduler(subjects, students)
-            let calculatedWorkSchedule = workScheduler.calculateWorkSchedule()
-           /* students.forEach((student) => student.save((err) => {
+            workScheduler.calculateWorkSchedule()
+            students.forEach((student) => student.save((err) => {
                 if (err) {
                     console.log(err)
                 }
-            }))*/
+            }))
             res.send(students)
             next();
         } catch (err) {
