@@ -1,10 +1,8 @@
 'use strict'
 const TinyQueue = require('tinyqueue');
 
-class StudentChoice
-{
-    constructor(student, choice)
-    {
+class StudentChoice {
+    constructor(student, choice) {
         this.student = student;
         this.choice = choice
         this.additionalPoints = 0
@@ -14,13 +12,18 @@ class StudentChoice
 module.exports = class WorkScheduler {
     constructor(subjects, students) {
         this.choicesList = [];
-        students.forEach((student) => { student.choices.forEach( (choice) => { this.choicesList.push(new StudentChoice(student, choice)) } ) })
+        students.forEach((student) => {
+            student.choices.forEach((choice) => {
+                this.choicesList.push(new StudentChoice(student, choice))
+            })
+        })
         this.choicesQueue = new TinyQueue(this.choicesList.slice(), function (a, b) {
-            return b.choice.numberOfPoints - a.choice.numberOfPoints} );
+            return b.choice.numberOfPoints - a.choice.numberOfPoints
+        });
         this.subjects = subjects;
         this.students = students;
         this.choicesToIgnore = [];
-        this.shouldOutputDebugInfo = true;
+        this.shouldOutputDebugInfo = false;
     }
 
     calculateWorkSchedule() {
@@ -37,7 +40,7 @@ module.exports = class WorkScheduler {
             }
             this.logDebugMsg(' ------------------------------- ')
         }
-       this.assignLeftovers()
+        this.assignLeftovers()
     }
 
     logDebugMsg(debugMsg) {
@@ -48,15 +51,12 @@ module.exports = class WorkScheduler {
 
     processSingleChoice(studentChoice) {
         const isAssigned = this.tryToAssignStudentByChoice(studentChoice)
-        if (isAssigned)
-        {
+        if (isAssigned) {
             let choicesForSameSubject = this.findSameSubjectChoices(studentChoice.student, studentChoice.choice.nameOfSubject);
             this.calculateLevelOfSatisfaction(studentChoice, choicesForSameSubject);
-            this.logDebugMsg('Make ignore ' + studentChoice.student.name + '|' + studentChoice.choice.nameOfSubject );
+            this.logDebugMsg('Make ignore ' + studentChoice.student.name + '|' + studentChoice.choice.nameOfSubject);
             this.choicesToIgnore.push(...choicesForSameSubject)
-        }
-        else
-        {
+        } else {
             this.increaseNextStudentPreferenceValue(studentChoice.student, studentChoice.choice);
             this.logDebugMsg('Make ignore ' + studentChoice.student.name + '|' + studentChoice.choice.nameOfSubject + '|' + studentChoice.choice.groupID);
             this.choicesToIgnore.push(studentChoice.choice)
@@ -67,14 +67,11 @@ module.exports = class WorkScheduler {
     tryToAssignStudentByChoice(studentChoice) {
         let associatedGroup = this.findAssociatedGroup(studentChoice.choice.nameOfSubject, studentChoice.choice.groupID)
         this.logDebugMsg('Associated group: \n' + associatedGroup)
-        if (associatedGroup.numberOfPeople > 0 )
-        {
+        if (associatedGroup.numberOfPeople > 0) {
             this.assignStudentToGroup(associatedGroup, studentChoice.student, studentChoice.choice.nameOfSubject);
             this.logDebugMsg('!! Assigned !!')
             return true
-        }
-        else
-        {
+        } else {
             this.logDebugMsg('!! Not assigned !!')
             return false
         }
@@ -89,7 +86,7 @@ module.exports = class WorkScheduler {
     }
 
     findAssociatedGroup(nameOfSubject, groupID) {
-        let associatedSubject = this.subjects.find((subject) => subject.nameOfSubject ===  nameOfSubject)
+        let associatedSubject = this.subjects.find((subject) => subject.nameOfSubject === nameOfSubject)
         return associatedSubject.groups[groupID - 1]
     }
 
@@ -99,14 +96,14 @@ module.exports = class WorkScheduler {
         let student = studentChoice.student;
         let numberOfPoints = studentChoice.choice.numberOfPoints;
 
-        let studentChoiceIndex = choicesForSameSubject.findIndex( (choice) => {
+        let studentChoiceIndex = choicesForSameSubject.findIndex((choice) => {
             return choice.numberOfPoints === numberOfPoints;
         });
 
         let totalNumberOfPointsPerSubject = 0
         choicesForSameSubject.forEach((choiceForSameSubject) => totalNumberOfPointsPerSubject += choiceForSameSubject.numberOfPoints);
 
-        const satisfactionRatio = totalNumberOfPointsPerSubject / (100 + studentChoice.additionalPoints);
+        const satisfactionRatio = (totalNumberOfPointsPerSubject - studentChoice.additionalPoints) / 100;
 
         let levelOfSatisfactionIncrease = 0
         switch (studentChoiceIndex) {
@@ -127,24 +124,29 @@ module.exports = class WorkScheduler {
 
     findSameSubjectChoices(student, nameOfSubject) {
 
-        return student.choices.filter( (choice) => {
-            return choice.nameOfSubject === nameOfSubject;
-        }).sort((a,b) => {
-            return (a.numberOfPoints < b.numberOfPoints)
+        return this.choicesList.filter((studentChoice) => {
+            return studentChoice.choice.nameOfSubject === nameOfSubject && studentChoice.student === student;
+        }).sort((a, b) => {
+            return (a.choice.numberOfPoints - a.additionalPoints) < (b.choice.numberOfPoints - b.additionalPoints);
+        }).map((studentChoice) => {
+            return studentChoice.choice
         })
     }
 
     increaseNextStudentPreferenceValue(student, processedChoice) {
-        let studentChoices = this.choicesList.filter((choice) => { return choice.student === student})
-        studentChoices.sort((a,b) => {
+        let studentChoices = this.choicesList.filter((choice) => {
+            return choice.student === student
+        })
+        studentChoices.sort((a, b) => {
             return (a.choice.numberOfPoints < b.choice.numberOfPoints)
         })
-        const choiceIndex = studentChoices.findIndex( (studentChoice) => {return studentChoice.choice === processedChoice})
+        const choiceIndex = studentChoices.findIndex((studentChoice) => {
+            return studentChoice.choice === processedChoice
+        })
         let nextIndex = choiceIndex + 1;
         while (nextIndex < student.choices.length) {
-            let nextStudentChoice =  studentChoices[nextIndex];
-            if (this.choicesToIgnore.includes(nextStudentChoice.choice))
-            {
+            let nextStudentChoice = studentChoices[nextIndex];
+            if (this.choicesToIgnore.includes(nextStudentChoice.choice)) {
                 nextIndex += 1
                 this.logDebugMsg('Going to next choice, as ' + nextStudentChoice.choice.nameOfSubject + '|' + nextStudentChoice.choice.groupID + ' is on ignore list')
                 continue
@@ -171,24 +173,30 @@ module.exports = class WorkScheduler {
                 groupsWithFreePlacesPerSubject.set(subject.nameOfSubject, groupsWithFreePlacesSingleSubject)
             }
         );
-       this.students.forEach((student) => {
+        this.students.forEach((student) => {
 
-           this.assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlacesPerSubject)
-           for (let [subject, subjectGroupsWithFreePlaces] of groupsWithFreePlacesPerSubject) {
-               groupsWithFreePlacesPerSubject.set(subject, subjectGroupsWithFreePlaces.filter((groupWithFreePlace) => {return groupWithFreePlace.numberOfPeople > 0}))
-           }
+            this.assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlacesPerSubject)
+            for (let [subject, subjectGroupsWithFreePlaces] of groupsWithFreePlacesPerSubject) {
+                groupsWithFreePlacesPerSubject.set(subject, subjectGroupsWithFreePlaces.filter((groupWithFreePlace) => {
+                    return groupWithFreePlace.numberOfPeople > 0
+                }))
+            }
 
 
-       })
+        })
     }
 
     assignLeftoversForSingleStudent(student, obligatorySubjects, groupsWithFreePlacesSingleSubject) {
         if (obligatorySubjects.length !== student.subjectsIds.length) {
-            const studentAssignedSubjectsNames = student.subjectsIds.map((subjectsId) => {return subjectsId.nameOfSubject} )
-            let notAssignedSubjects = obligatorySubjects.filter((obligatorySubject) => { return !studentAssignedSubjectsNames.includes(obligatorySubject)})
-            notAssignedSubjects.forEach( (notAssignedSubject) => {
+            const studentAssignedSubjectsNames = student.subjectsIds.map((subjectsId) => {
+                return subjectsId.nameOfSubject
+            })
+            let notAssignedSubjects = obligatorySubjects.filter((obligatorySubject) => {
+                return !studentAssignedSubjectsNames.includes(obligatorySubject)
+            })
+            notAssignedSubjects.forEach((notAssignedSubject) => {
                 let sameSubjectGroup = groupsWithFreePlacesSingleSubject.get(notAssignedSubject)[0]
-                this.assignStudentToGroup(sameSubjectGroup,student, notAssignedSubject);
+                this.assignStudentToGroup(sameSubjectGroup, student, notAssignedSubject);
             })
         }
     }

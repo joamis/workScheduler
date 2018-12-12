@@ -137,7 +137,7 @@ describe('WorkScheduler_2', () => {
 
         match(students, 'Krzys', [["WDI", 1], ["SCS", 2]], 75);
         match(students, 'Zbys', [["WDI", 1], ["SCS", 1]], 100);
-        match(students, 'Janusz', [["WDI", 2], ["SCS", 1]], 27.5);
+        match(students, 'Janusz', [["WDI", 2], ["SCS", 1]], 60);
     })
 });
 
