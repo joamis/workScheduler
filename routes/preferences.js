@@ -8,6 +8,7 @@ module.exports = server => {
     server.get('/preferences/:id' , async (req, res, next) => {
         try {
             const student = await Student.findById(req.params.id);
+            console.log(student.choices);
             const preferences = student.choices;
             res.send(preferences);
             next();

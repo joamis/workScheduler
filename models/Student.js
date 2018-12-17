@@ -16,14 +16,14 @@ const StudentSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    /*choices: [Preference],
+    choices: [Preference],
     levelOfSatisfaction: {
         type: Number,
         required: false,
         default: 0
     },
     subjectsIds: [SubjectID],
-*/
+
     username: {
         type: String,
         unique : true,
