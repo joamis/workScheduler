@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const GroupSchema = new mongoose.Schema({
-    date: String,
+    date: Date,
     numberOfPeople: Number,
     groupID: Number
 });

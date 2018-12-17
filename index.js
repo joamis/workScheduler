@@ -37,6 +37,8 @@ db.once('open', () => {
     require('./routes/scheduleWork')(server);
     require('./routes/readyTimetable')(server);
     require('./routes/users')(server);
+    require('./routes/students')(server);
+    require('./routes/subjects')(server);
     console.log(`Server started on port ${config.PORT}`);
 });
 

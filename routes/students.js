@@ -4,22 +4,22 @@ const Student = require('../models/Student');
 module.exports = server => {
 
 
-    server.get('/Students', async (req, res, next) => {
+    server.get('/students', async (req, res, next) => {
 
         try {
-            const Students = await Student.find({});
-            res.send(Students);
+            const students = await Student.find({});
+            res.send(students);
             next();
         } catch (err) {
             return next(new errors.InvalidContentError(err));
         }
     });
 
-    server.get('/Students/:id', async (req, res, next) => {
+    server.get('/students/:id', async (req, res, next) => {
 
         try {
-            const Student = await Student.findById(req.params.id);
-            res.send(Student);
+            const student = await Student.findById(req.params.id);
+            res.send(student);
             next();
         } catch (err) {
 
@@ -28,24 +28,25 @@ module.exports = server => {
 
     });
 
-    server.post('/Students', async (req, res, next) => {
+    server.post('/students', async (req, res, next) => {
 
         if(!req.is('application/json')){
             return next(new errors.InvalidContentError("Expects 'application/json"))
         }
 
-        const { name, surname, indexNumber, idOfClass, email } = req.body;
-        const Student = new Student({
+        const { name, surname, username } = req.body;
+        console.log(req.body);
+
+        const student = new Student({
             name,
             surname,
-            indexNumber,
-            idOfClass,
-            email
+            username
         });
 
+        console.log(student);
         try{
 
-            const newStudent = await Student.save();
+            const newStudent = await student.save();
             res.send(201);
             next();
         }
@@ -55,7 +56,7 @@ module.exports = server => {
         }
     });
 
-    server.put('/Students/:id', async (req, res, next) => {
+    server.put('/students/:id', async (req, res, next) => {
 
         if(!req.is('application/json')){
             return next(new errors.InvalidContentError("Expects 'application/json"))
@@ -64,7 +65,7 @@ module.exports = server => {
 
         try{
 
-            const Student = await Student.findOneAndUpdate( {_id: req.params.id }, req.body);
+            const student = await Student.findOneAndUpdate( {_id: req.params.id }, req.body);
             res.send(200);
             next();
         }
@@ -75,11 +76,11 @@ module.exports = server => {
     });
 
 
-    server.del('/Students/:id', async (req, res, next) => {
+    server.del('/students/:id', async (req, res, next) => {
 
         try{
 
-            const Student = await Student.findOneAndRemove( {_id: req.params.id });
+            const student = await Student.findOneAndRemove( {_id: req.params.id });
             res.send(204);
             next();
         }

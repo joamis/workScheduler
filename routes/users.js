@@ -8,6 +8,7 @@ const Student = require('../models/Student')
 
 
 module.exports = server => {
+
     server.post('/register', async (req, res, next) => {
         const {username, password} = JSON.parse(req.body)
 
@@ -62,4 +63,65 @@ module.exports = server => {
             return next(new errors.UnauthorizedError(err));
         }
     });
+
+    server.get('/users', async (req, res, next) => {
+
+        try {
+            const users = await User.find({});
+            res.send(users);
+            next();
+        } catch (err) {
+            return next(new errors.InvalidContentError(err));
+        }
+    });
+
+    server.get('/users/:id', async (req, res, next) => {
+
+        try {
+            const user = await User.findById(req.params.id);
+            res.send(user);
+            next();
+        } catch (err) {
+
+            return next(new errors.ResourceNotFoundError(`There is no Student with this id of ${req.params.id}`));
+        }
+
+    });
+
+    server.put('/users/:id', async (req, res, next) => {
+
+        if(!req.is('application/json')){
+            return next(new errors.InvalidContentError("Expects 'application/json"))
+        }
+
+
+        try{
+
+            const user = await User.findOneAndUpdate( {_id: req.params.id }, req.body);
+            res.send(200);
+            next();
+        }
+        catch(err){
+
+            return next(new errors.ResourceNotFoundError(`There is no Student with this id of ${req.params.id}`));
+        }
+    });
+
+
+    server.del('/users/:id', async (req, res, next) => {
+
+        try{
+
+            const user = await User.findOneAndRemove( {_id: req.params.id });
+            res.send(204);
+            next();
+        }
+        catch(err){
+
+            return next(new errors.ResourceNotFoundError(`There is no Student with this id of ${req.params.id}`));
+        }
+    });
+
+
+
 }
