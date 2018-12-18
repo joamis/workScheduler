@@ -8,6 +8,22 @@ const config = require('../config')
 
 module.exports = server => {
 
+    server.get('/isScheduleCalculated', async (req, res, next) => {
+        try {
+            let students = await Student.find({});
+            if (students[0].subjectsIds.length) {
+                res.send(true);
+            }
+            else {
+                res.send(false);
+            }
+        }
+
+        catch (err) {
+            return next(new errors.InvalidContentError(err))
+        }
+    });
+
     server.post('/scheduleWork', async (req, res, next) => {
         try {
             const subjects = await Subject.find({});
@@ -18,6 +34,7 @@ module.exports = server => {
             })
             let workScheduler = new WorkScheduler(subjects, students)
             workScheduler.calculateWorkSchedule()
+            console.log(workScheduler)
             students.forEach((student) => student.save((err) => {
                 if (err) {
                     console.log(err)
@@ -28,6 +45,8 @@ module.exports = server => {
         } catch (err) {
             return next(new errors.InvalidContentError(err));
         }
+
+
     });
 
     server.post('/resetScheduleWork', async (req, res, next) => {
@@ -49,7 +68,7 @@ module.exports = server => {
         }
     });
 
-    server.get('/scheduleWork', rjwt({secret: config.JWT_SECRET}) ,async (req, res, next) => {
+    server.get('/scheduleWork', rjwt({secret: config.JWT_SECRET}), async (req, res, next) => {
         try {
             const Students = await Student.find({});
             res.send(Students)

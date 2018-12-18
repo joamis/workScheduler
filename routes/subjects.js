@@ -34,21 +34,18 @@ module.exports = server => {
     });
 
     server.post('/subjects', async (req, res, next) => {
-
-        if(!req.is('application/json')){
-            return next(new errors.InvalidContentError("Expects 'application/json"))
-        }
-
-        const { nameOfSubject } = req.body;
-
+        const { nameOfSubject, groups } = JSON.parse(req.body);
+        console.log(nameOfSubject)
+        console.log(groups)
         const subject = new Subject({
-            nameOfSubject
+            nameOfSubject,
+            groups
         });
 
         try{
 
             const newSubject = await subject.save();
-            res.send(201);
+            res.send(newSubject);
             next();
         }
         catch(err){
@@ -78,6 +75,8 @@ module.exports = server => {
 
     server.del('/subjects/:id', async (req, res, next) => {
 
+        console.log('deletion')
+
         try{
 
             const subject = await Subject.findOneAndRemove( {_id: req.params.id });
@@ -86,7 +85,7 @@ module.exports = server => {
         }
         catch(err){
 
-            return next(new errors.ResourceNotFoundError(`There is no Student with this id of ${req.params.id}`));
+            return next(new errors.ResourceNotFoundError(`There is no Subject with this id of ${req.params.id}`));
         }
     });
 

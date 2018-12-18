@@ -47,9 +47,11 @@ module.exports = class WorkScheduler {
         if (this.shouldOutputDebugInfo) {
             console.log(debugMsg)
         }
+
     }
 
     processSingleChoice(studentChoice) {
+        console.log(studentChoice)
         const isAssigned = this.tryToAssignStudentByChoice(studentChoice)
         if (isAssigned) {
             let choicesForSameSubject = this.findSameSubjectChoices(studentChoice.student, studentChoice.choice.nameOfSubject);
@@ -86,7 +88,9 @@ module.exports = class WorkScheduler {
     }
 
     findAssociatedGroup(nameOfSubject, groupID) {
+        console.log(nameOfSubject)
         let associatedSubject = this.subjects.find((subject) => subject.nameOfSubject === nameOfSubject)
+        console.log(associatedSubject)
         return associatedSubject.groups[groupID - 1]
     }
 
