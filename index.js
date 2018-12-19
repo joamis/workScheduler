@@ -39,6 +39,7 @@ db.once('open', () => {
     require('./routes/users')(server);
     require('./routes/students')(server);
     require('./routes/subjects')(server);
+    require('./routes/admin')(server);
     console.log(`Server started on port ${config.PORT}`);
 });
 
