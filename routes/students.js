@@ -30,24 +30,26 @@ module.exports = server => {
 
     server.post('/students', async (req, res, next) => {
 
-        if(!req.is('application/json')){
-            return next(new errors.InvalidContentError("Expects 'application/json"))
-        }
+        let choices = [];
+        let levelOfSatisfaction = 0;
+        let subjectsIds = [];
 
-        const { name, surname, username } = req.body;
-        console.log(req.body);
+        const { name,surname,username } = JSON.parse(req.body);
 
         const student = new Student({
             name,
             surname,
-            username
+            username,
+            choices,
+            levelOfSatisfaction,
+            subjectsIds
+
         });
 
-        console.log(student);
         try{
 
             const newStudent = await student.save();
-            res.send(201);
+            res.send(newStudent);
             next();
         }
         catch(err){
