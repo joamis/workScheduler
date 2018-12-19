@@ -108,20 +108,41 @@ module.exports = server => {
     });
 
 
-    server.del('/users/:id', async (req, res, next) => {
+    server.post('/users', async (req, res, next) => {
+
+
+        const { username, password } = JSON.parse(req.body);
+
+        const user = new User({
+            username,
+            password
+        });
 
         try{
 
-            const user = await User.findOneAndRemove( {_id: req.params.id });
-            res.send(204);
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(user.password, salt, async (err, hash) => {
+                    user.password = hash;
+                })
+            })
+
+            const newUser = await user.save((err) => {
+                if (err) {
+                    res.status(409)
+                    res.send('Duplikat')
+                }
+            });
+
+            res.send(newUser);
             next();
+
         }
+
         catch(err){
 
-            return next(new errors.ResourceNotFoundError(`There is no Student with this id of ${req.params.id}`));
+            return next( new errors.InternalError(err.message));
         }
     });
-
 
 
 }
