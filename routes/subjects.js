@@ -55,14 +55,8 @@ module.exports = server => {
     });
 
     server.put('/subjects/:id', async (req, res, next) => {
-
-        if(!req.is('application/json')){
-            return next(new errors.InvalidContentError("Expects 'application/json"))
-        }
-
-
+        console.log(req.body)
         try{
-
             const subject = await Subject.findOneAndUpdate( {_id: req.params.id }, req.body);
             res.send(200);
             next();
@@ -80,7 +74,7 @@ module.exports = server => {
         try{
 
             const subject = await Subject.findOneAndRemove( {_id: req.params.id });
-            res.send(204);
+            res.send(200);
             next();
         }
         catch(err){

@@ -2,19 +2,22 @@ const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
 mongoose.set('debug', false);
-const rjwt = require('restify-jwt-community')
+const corsMiddleware = require('restify-cors-middleware')
 
 const server = restify.createServer();
 
 // Middleware
 server.use(restify.plugins.bodyParser());
-server.use(
-    function crossOrigin(req,res,next){
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        return next();
-    }
-);
+
+const cors = corsMiddleware({
+    preflightMaxAge: 5, //Optional
+    origins: ['*'],
+    allowHeaders: ['API-Token'],
+    exposeHeaders: ['API-Token-Expiry']
+})
+
+server.pre(cors.preflight)
+server.use(cors.actual)
 
 //Protect routes
 //server.use(rjwt({secret: config.JWT_SECRET}).unless({path: ['/auth']}))
