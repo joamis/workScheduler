@@ -35,3 +35,46 @@ describe('TimeController_1', () => {
     });
 });
 
+describe('TimeController_2', () => {
+    it('Test single student time assignment jeden po drugim', () => {
+        let timeController =  new TimeController();
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0000", 90), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0130", 90), true);
+    });
+    it('Test single student time assignment jeden w trakcie drugiego', () => {
+        let timeController =  new TimeController();
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0000", 90), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0120", 90), false);
+    });
+    it('Test single student time assignment jeden miedzy dwoma innymi', () => {
+        let timeController =  new TimeController();
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0000", 120), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0400", 120), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0200", 120), true);
+    });
+    it('Test single student time assignment jeden miedzy dwoma innymi, zbyt dlugi fail, krotki pozniej dziala', () => {
+        let timeController =  new TimeController();
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0000", 120), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0400", 120), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0200", 121), false);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0200", 120), true);
+    });
+});
+
+describe('TimeController_2', () => {
+    it('Test multiple student time assignment jeden po drugim', () => {
+        let timeController =  new TimeController();
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0000", 90), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0130", 90), true);
+        assert.equal(timeController.bookStudentTime("Karol","Monday", "0000", 90), true);
+        assert.equal(timeController.bookStudentTime("Karol","Monday", "0130", 90), true);
+    });
+
+    it('Test multiple student time assignment jeden jeden w trakcie drugiego', () => {
+        let timeController =  new TimeController();
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0000", 90), true);
+        assert.equal(timeController.bookStudentTime("Janek","Monday", "0120", 90), false);
+        assert.equal(timeController.bookStudentTime("Karol","Monday", "0000", 90), true);
+        assert.equal(timeController.bookStudentTime("Karol","Monday", "0120", 90), false);
+    });
+});

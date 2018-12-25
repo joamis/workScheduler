@@ -2,8 +2,8 @@
 
 
 module.exports = class TimeController {
-    TimeController() {
-        this.studentWithBusyTime = new Map()
+    constructor() {
+        this.studentWithBusyTimeMap = new Map()
     }
 
     static convertToMinSinceBegOfMonday(dayOfWeek, timeOfDay) {
@@ -47,6 +47,23 @@ module.exports = class TimeController {
     }
 
     bookStudentTime(studentID, dayOfWeek, timeOfDay, duration) {
-
+        const currentlyBookedTimeStart = TimeController.convertToMinSinceBegOfMonday(dayOfWeek, timeOfDay);
+        const currentlyBookedTimeEnd = currentlyBookedTimeStart + duration;
+        if (this.studentWithBusyTimeMap.has(studentID)) {
+            let studentBusyTimeRanges = this.studentWithBusyTimeMap.get(studentID);
+            for (let studentBusyTimeRange of studentBusyTimeRanges) {
+                const [rangeStart, rangeEnd] = studentBusyTimeRange;
+                if (rangeEnd <= currentlyBookedTimeStart || currentlyBookedTimeEnd <= rangeStart) {
+                    continue; // we're  outside range
+                }
+                return false;
+            }
+            studentBusyTimeRanges.push([currentlyBookedTimeStart, currentlyBookedTimeEnd]);
+            return true;
+        } else {
+            let studentBusyTime = [[currentlyBookedTimeStart, currentlyBookedTimeEnd]]
+            this.studentWithBusyTimeMap.set(studentID, studentBusyTime);
+            return true;
+        }
     }
 }
