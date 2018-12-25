@@ -49,7 +49,8 @@ module.exports = server => {
 
     });
 
-    server.post('/resetScheduleWork', async (req, res, next) => {
+    server.post('/resetScheduleWork', rjwt({secret: config.JWT_SECRET}), async (req, res, next) => {
+        console.log(req.user)
         try {
             let students = await Student.find({});
             students.forEach((student) => {

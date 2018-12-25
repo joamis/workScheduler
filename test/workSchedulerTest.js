@@ -29,11 +29,15 @@ function createStudent(name, prefArrays) {
     });
 }
 
-function createSubject(subjectName, numbersOfPeopleInGroups) {
+function createSubject(subjectName, groupParameters) {
     let groups = [];
     let groupIndex = 1;
-    numbersOfPeopleInGroups.forEach((numbersOfPeopleInGroup) => {
-        groups.push(new Group({date: '', numberOfPeople: numbersOfPeopleInGroup, groupID: groupIndex}))
+    groupParameters.forEach((groupParameter) => {
+        const numberOfPeopleInGroup = groupParameter[0]
+        const groupDayOfWeek = groupParameter[1]
+        const groupStarTimeOfDay = groupParameter[2]
+        const groupDuration = groupParameter[3]
+        groups.push(new Group({dayOfWeek: groupDayOfWeek, numberOfPeople: numberOfPeopleInGroup, groupID: groupIndex, startTimeMinSinceMid: groupStarTimeOfDay, duration: groupDuration}))
         groupIndex += 1
     });
     return new Subject({nameOfSubject: subjectName, groups: groups})
@@ -106,8 +110,8 @@ describe('WorkScheduler_1', () => {
         students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
         students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
 
-        subjects.push(createSubject('WDI', [2, 1]))
-        subjects.push(createSubject('SCS', [2, 1]))
+        subjects.push(createSubject('WDI', [[2, "Monday", "0800", 90], [1, "Tuesday", "0800", 90]]))
+        subjects.push(createSubject('SCS', [[2, "Wednesday", "0800", 90], [1, "Thursday", "0800", 90]]))
 
         let workScheduler = new WorkScheduler(subjects, students);
         workScheduler.calculateWorkSchedule();
@@ -128,8 +132,8 @@ describe('WorkScheduler_2', () => {
         students.push(createStudent('Zbys', [["WDI", 1, 70], ["SCS", 1, 30]]))
         students.push(createStudent('Janusz', [["WDI", 1, 65], ["WDI", 2, 15], ["SCS", 1, 20]]))
 
-        subjects.push(createSubject('WDI', [2, 1]))
-        subjects.push(createSubject('SCS', [2, 1]))
+        subjects.push(createSubject('WDI', [[2, "Monday", "0800", 90], [1, "Tuesday", "0800", 90]]))
+        subjects.push(createSubject('SCS', [[2, "Wednesday", "0800", 90], [1, "Thursday", "0800", 90]]))
 
 
         let workScheduler = new WorkScheduler(subjects, students)
@@ -152,8 +156,8 @@ describe('WorkScheduler_3', () => {
         students.push(createStudent('Monika', [["WDI", 2, 28], ["SCS", 2, 72]]))
         students.push(createStudent('Maja', [["WDI", 2, 29], ["SCS", 2, 71]]))
 
-        subjects.push(createSubject('WDI', [2, 2, 1]))
-        subjects.push(createSubject('SCS', [2, 2, 1]))
+        subjects.push(createSubject('WDI', [[2, "Monday", "0800", 90], [2, "Tuesday", "0800", 90], [1, "Wednesday", "0800", 90]]))
+        subjects.push(createSubject('SCS', [[2, "Monday", "1000", 90], [2, "Tuesday", "1000", 90], [1, "Wednesday", "1000", 90]]))
 
 
         let workScheduler = new WorkScheduler(subjects, students)
@@ -168,3 +172,25 @@ describe('WorkScheduler_3', () => {
     })
 });
 
+
+describe('WorkScheduler_4', () => {
+    it('Jan nie dostaje sie na SCS1 bo jest juz przypisany na WDI1 o tej samej godzinie', () => {
+        let students = [];
+        let subjects = [];
+
+        students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]));
+        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
+        students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
+
+        subjects.push(createSubject('WDI', [[2, "Monday", "0800", 90], [1, "Tuesday", "0800", 90]]));
+        subjects.push(createSubject('SCS', [[2, "Monday", "0800", 90], [1, "Thursday", "0800", 90]]));
+
+        let workScheduler = new WorkScheduler(subjects, students);
+        workScheduler.calculateWorkSchedule();
+
+
+        match(students, 'Karol', [["WDI", 1], ["SCS", 2]], 100);
+        match(students, 'Jan', [["WDI", 1], ["SCS", 2]], 100);
+        match(students, 'Piotr', [["WDI", 2], ["SCS", 1]], 100);
+    })
+});
