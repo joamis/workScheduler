@@ -200,4 +200,25 @@ describe('WorkScheduler_4', () => {
         match(students, 'Jan', [["WDI", 1], ["SCS", 3]], 80);
         match(students, 'Piotr', [["WDI", 2], ["SCS", 1]], 100);
     })
+
+    it('Jan nie dostaje sie na SCS1 bo jest juz przypisany na WDI1 o tej samej godzinie, dopisywany jest do SCS2, ' +
+        'bo mimo ze SCS3 ma wyzsze preferencje to tez jest o tej samej godzinie', () => {
+        let students = [];
+        let subjects = [];
+
+        students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]));
+        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 37], ["SCS", 2, 2], ["SCS", 3, 1]]));
+        students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
+
+        subjects.push(createSubject('WDI', [[2, "Monday", "0800", 180], [1, "Tuesday", "0800", 90]]));
+        subjects.push(createSubject('SCS', [[2, "Monday", "0800", 90], [1, "Monday", "0930", 90], [2, "Friday", "0800", 90]]));
+
+        let workScheduler = new WorkScheduler(subjects, students);
+        workScheduler.calculateWorkSchedule();
+
+
+        match(students, 'Karol', [["WDI", 1], ["SCS", 3]], 50);
+        match(students, 'Jan', [["WDI", 1], ["SCS", 3]], 68);
+        match(students, 'Piotr', [["WDI", 2], ["SCS", 1]], 100);
+    })
 });
