@@ -1,7 +1,6 @@
-const TimeController = require("../backend/TimeController")
+const TimeController = require("../backend/TimeController");
 
 const assert = require('chai').assert;
-const expect = require('chai').expect;
 
 
 describe('TimeController_1', () => {

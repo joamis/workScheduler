@@ -37,7 +37,13 @@ function createSubject(subjectName, groupParameters) {
         const groupDayOfWeek = groupParameter[1]
         const groupStarTimeOfDay = groupParameter[2]
         const groupDuration = groupParameter[3]
-        groups.push(new Group({dayOfWeek: groupDayOfWeek, numberOfPeople: numberOfPeopleInGroup, groupID: groupIndex, startTimeMinSinceMid: groupStarTimeOfDay, duration: groupDuration}))
+        groups.push(new Group({
+            dayOfWeek: groupDayOfWeek,
+            numberOfPeople: numberOfPeopleInGroup,
+            groupID: groupIndex,
+            startTime: groupStarTimeOfDay,
+            duration: groupDuration
+        }));
         groupIndex += 1
     });
     return new Subject({nameOfSubject: subjectName, groups: groups})
@@ -72,8 +78,9 @@ function match(students, studentName, allocations, levelOfSatisfaction) {
     if (!result) {
         allocations.sort();
         associatedStudent.subjectsIds.sort((choiceA, choiceB) => {
-            return choiceA.nameOfSubject.localeCompare(choiceB.nameOfSubject)});
-        console.log('Student: ' + associatedStudent.name )
+            return choiceA.nameOfSubject.localeCompare(choiceB.nameOfSubject)
+        });
+        console.log('Student: ' + associatedStudent.name)
         console.log('Expected:')
         let expectedMap = new Map();
         allocations.forEach((allocation) => {
@@ -91,7 +98,7 @@ function match(students, studentName, allocations, levelOfSatisfaction) {
     if (levelOfSatisfaction) {
         const floatComparisionResult = areFloatsEqual(associatedStudent.levelOfSatisfaction, levelOfSatisfaction)
         if (!floatComparisionResult) {
-            console.log('Student: ' + associatedStudent.name )
+            console.log('Student: ' + associatedStudent.name)
             console.log('Level of satisfaction expected:')
             console.log(levelOfSatisfaction)
             console.log('Level of satisfaction actual:')
@@ -164,33 +171,33 @@ describe('WorkScheduler_3', () => {
         workScheduler.calculateWorkSchedule();
         assert.equal(true, true)
 
-        match(students, 'Anna', [["WDI", 1], ["SCS", 1]],100);
-        match(students, 'Karolina', [["WDI", 1], ["SCS", 1]],100);
-        match(students, 'Maria', [["WDI", 2], ["SCS", 3]],32.5);
-        match(students, 'Monika', [["WDI", 3], ["SCS", 2]],72);
-        match(students, 'Maja', [["WDI", 2], ["SCS", 2]],100);
+        match(students, 'Anna', [["WDI", 1], ["SCS", 1]], 100);
+        match(students, 'Karolina', [["WDI", 1], ["SCS", 1]], 100);
+        match(students, 'Maria', [["WDI", 2], ["SCS", 3]], 32.5);
+        match(students, 'Monika', [["WDI", 3], ["SCS", 2]], 72);
+        match(students, 'Maja', [["WDI", 2], ["SCS", 2]], 100);
     })
 });
 
 
 describe('WorkScheduler_4', () => {
-    it('Jan nie dostaje sie na SCS1 bo jest juz przypisany na WDI1 o tej samej godzinie', () => {
+    it('Jan nie dostaje sie na SCS1 bo jest juz przypisany na WDI1 o tej samej godzinie, dopisywany jest do SCS3 bo ma tam najwyzsze preferencje', () => {
         let students = [];
         let subjects = [];
 
         students.push(createStudent('Karol', [["WDI", 1, 50], ["SCS", 2, 50]]));
-        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 40]]));
+        students.push(createStudent('Jan', [["WDI", 1, 60], ["SCS", 1, 37], ["SCS", 2, 1], ["SCS", 3, 2]]));
         students.push(createStudent('Piotr', [["WDI", 2, 30], ["SCS", 1, 70]]));
 
         subjects.push(createSubject('WDI', [[2, "Monday", "0800", 90], [1, "Tuesday", "0800", 90]]));
-        subjects.push(createSubject('SCS', [[2, "Monday", "0800", 90], [1, "Thursday", "0800", 90]]));
+        subjects.push(createSubject('SCS', [[2, "Monday", "0800", 90], [1, "Thursday", "0800", 90], [1, "Friday", "0800", 90]]));
 
         let workScheduler = new WorkScheduler(subjects, students);
         workScheduler.calculateWorkSchedule();
 
 
         match(students, 'Karol', [["WDI", 1], ["SCS", 2]], 100);
-        match(students, 'Jan', [["WDI", 1], ["SCS", 2]], 100);
+        match(students, 'Jan', [["WDI", 1], ["SCS", 3]], 80);
         match(students, 'Piotr', [["WDI", 2], ["SCS", 1]], 100);
     })
 });

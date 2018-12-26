@@ -5,7 +5,7 @@ const GroupSchema = new mongoose.Schema({
     numberOfPeople: Number,
     groupID: Number,
     dayOfWeek: String,
-    startTimeMinSinceMid: Number,
+    startTime: String,
     duration: Number
 });
 

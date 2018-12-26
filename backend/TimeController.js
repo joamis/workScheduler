@@ -2,8 +2,9 @@
 
 
 module.exports = class TimeController {
-    constructor() {
+    constructor(showDebugInfo) {
         this.studentWithBusyTimeMap = new Map()
+        this.showDebugInfo = showDebugInfo
     }
 
     static convertToMinSinceBegOfMonday(dayOfWeek, timeOfDay) {
@@ -65,5 +66,19 @@ module.exports = class TimeController {
             this.studentWithBusyTimeMap.set(studentID, studentBusyTime);
             return true;
         }
+    }
+
+    bookStudentTimeForGroup(studentID, group) {
+        const retValue = this.bookStudentTime(studentID, group.dayOfWeek, group.startTime, group.duration);
+        if (this.showDebugInfo) {
+            let msg = "Student: " + studentID + " in booking group " + group.groupID + " " + group.dayOfWeek + " " + group.startTime + " " + group.duration + " -> "
+            if (retValue) {
+                msg += " !! Available !!"
+            } else {
+                msg += " !! Failed - is already busy in time range !!"
+            }
+            console.log(msg)
+        }
+        return retValue;
     }
 }
