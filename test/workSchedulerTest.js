@@ -222,3 +222,23 @@ describe('WorkScheduler_4', () => {
         match(students, 'Piotr', [["WDI", 2], ["SCS", 1]], 100);
     })
 });
+
+describe('WorkScheduler_5', () => {
+    it('Test rozbicia blokujacych sie rozwiazan', () => {
+        let students = [];
+        let subjects = [];
+
+        students.push(createStudent('Karol', [["WDI", 1, 100]]));
+        students.push(createStudent('Jan', [["WDI", 2, 20], ["SCS", 2, 80]]));
+
+        subjects.push(createSubject('WDI', [[1, "Monday", "0800", 90], [1, "Tuesday", "0800", 90]]));
+        subjects.push(createSubject('SCS', [[1, "Monday", "0800", 90], [1, "Thursday", "0800", 90]]));
+
+        let workScheduler = new WorkScheduler(subjects, students);
+        workScheduler.calculateWorkSchedule();
+
+
+        match(students, 'Karol', [["WDI", 1], ["SCS", 2]], 100);
+        match(students, 'Jan', [["WDI", 2], ["SCS", 1]], 80);
+    });
+});
