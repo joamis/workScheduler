@@ -19,7 +19,7 @@ module.exports = class WorkScheduler {
             })
         })
         this.choicesQueue = new TinyQueue(this.choicesList.slice(), function (a, b) {
-            return b.choice.numberOfPoints - a.choice.numberOfPoints
+            return (b.choice.numberOfPoints + b.additionalPoints) - (a.choice.numberOfPoints + a.additionalPoints);
         });
         this.subjects = subjects;
         this.students = students;
@@ -134,7 +134,7 @@ module.exports = class WorkScheduler {
         let totalNumberOfPointsPerSubject = 0;
         choicesForSameSubject.forEach((choiceForSameSubject) => totalNumberOfPointsPerSubject += choiceForSameSubject.numberOfPoints);
 
-        const satisfactionRatio = (totalNumberOfPointsPerSubject - studentChoice.additionalPoints) / 100;
+        const satisfactionRatio = totalNumberOfPointsPerSubject / 100;
 
         let levelOfSatisfactionIncrease = 0;
         switch (studentChoiceIndex) {
@@ -158,7 +158,7 @@ module.exports = class WorkScheduler {
         return this.choicesList.filter((studentChoice) => {
             return studentChoice.choice.nameOfSubject === nameOfSubject && studentChoice.student === student;
         }).sort((a, b) => {
-            return (a.choice.numberOfPoints - a.additionalPoints) < (b.choice.numberOfPoints - b.additionalPoints);
+            return a.choice.numberOfPoints < b.choice.numberOfPoints;
         }).map((studentChoice) => {
             return studentChoice.choice
         })
@@ -169,7 +169,7 @@ module.exports = class WorkScheduler {
             return choice.student === student
         })
         studentChoices.sort((a, b) => {
-            return (a.choice.numberOfPoints < b.choice.numberOfPoints)
+            return (a.choice.numberOfPoints + a.additionalPoints) < (b.choice.numberOfPoints + b.additionalPoints)
         })
         const choiceIndex = studentChoices.findIndex((studentChoice) => {
             return studentChoice.choice === processedChoice
@@ -182,7 +182,6 @@ module.exports = class WorkScheduler {
                 this.logDebugMsg('Going to next choice, as ' + nextStudentChoice.choice.nameOfSubject + '|' + nextStudentChoice.choice.groupID + ' is on ignore list')
                 continue
             }
-            nextStudentChoice.choice.numberOfPoints += 20
             nextStudentChoice.additionalPoints += 20
             this.logDebugMsg('Increasing choice by ' + nextStudentChoice.additionalPoints + ': \n' + nextStudentChoice.choice)
             //Lower points choices will be ignored anyway
