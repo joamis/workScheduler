@@ -47,6 +47,7 @@ module.exports = class WorkScheduler {
         this.debugShowGroups();
         this.assignLeftovers();
         this.debugShowGroups();
+        this.calculateLevelOfSatisfaction()
     }
 
     logDebugMsg(debugMsg) {
@@ -60,7 +61,7 @@ module.exports = class WorkScheduler {
         const studentAssignment = this.tryToAssignStudentByChoice(studentChoice)
         if (studentAssignment) {
             let choicesForSameSubject = this.findSameSubjectChoices(studentAssignment.student, studentAssignment.choice.nameOfSubject);
-            this.calculateLevelOfSatisfaction(studentAssignment, choicesForSameSubject);
+            //this.calculateLevelOfSatisfaction(studentAssignment, choicesForSameSubject);
             this.logDebugMsg('Make ignore ' + studentAssignment.student.name + '|' + studentAssignment.choice.nameOfSubject);
             this.choicesToIgnore.push(...choicesForSameSubject)
         } else {
@@ -121,13 +122,25 @@ module.exports = class WorkScheduler {
         return associatedSubject.groups[groupID - 1]
     }
 
-    calculateLevelOfSatisfaction(studentChoice, choicesForSameSubject) {
+    calculateLevelOfSatisfaction() {
+        this.students.forEach((student) => {
+            student.choices.forEach((choice) => {
+                this.calculateLevelOfSatisfactionSingleStudent(student, choice);
+            })
+        })
+    }
 
+    calculateLevelOfSatisfactionSingleStudent(student, choice) {
+        const choiceIsNotAssigned = student.subjectsIds.every((subjectId) => {
+            return subjectId.nameOfSubject !== choice.nameOfSubject || subjectId.groupID !== choice.groupID;
+        });
+        if (choiceIsNotAssigned) {
+            return;
+        }
+        const choicesForSameSubject = this.findSameSubjectChoices(student, choice.nameOfSubject);
+        const numberOfPoints = choice.numberOfPoints;
 
-        let student = studentChoice.student;
-        let numberOfPoints = studentChoice.choice.numberOfPoints;
-
-        let studentChoiceIndex = choicesForSameSubject.findIndex((choice) => {
+        const studentChoiceIndex = choicesForSameSubject.findIndex((choice) => {
             return choice.numberOfPoints === numberOfPoints;
         });
 
@@ -281,6 +294,5 @@ module.exports = class WorkScheduler {
             return id.nameOfSubject === assignment.nameOfSubject && id.groupID === assignment.groupID
         }), 1);
         group.numberOfPeople += 1;
-        console.log(associatedStudent)
     }
 }

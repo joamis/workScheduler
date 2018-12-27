@@ -239,6 +239,6 @@ describe('WorkScheduler_5', () => {
 
 
         match(students, 'Karol', [["WDI", 1], ["SCS", 2]], 100);
-        match(students, 'Jan', [["WDI", 2], ["SCS", 1]], 100); //TODO: fix level of satisfaction
+        match(students, 'Jan', [["WDI", 2], ["SCS", 1]], 20);
     });
 });
