@@ -14,8 +14,6 @@ module.exports = server => {
 
         try {
             const admin = await auth.authenticateAdmin(username, password);
-            admin.then('Admin logged in');
-
             //create token
 
             const token = jwt.sign(admin.toJSON(), config.JWT_SECRET, {
