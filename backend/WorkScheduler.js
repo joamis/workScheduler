@@ -256,14 +256,15 @@ module.exports = class WorkScheduler {
                     // All groups are taken, try to back-off
                     for (let i = this.orderedAssignments.length - 1; i >= 0; --i) {
                         const assignment = this.orderedAssignments[i][1];
-                        if (assignment.nameOfSubject !== notAssignedSubjectStr) {
+                        const isDifferentSubject = assignment.nameOfSubject !== notAssignedSubjectStr;
+                        let associatedGroup = this.findAssociatedGroup(assignment.nameOfSubject, assignment.groupID)
+                        if (isDifferentSubject || !this.timeController.bookStudentTimeForGroup(student.name, associatedGroup)) {
                             continue;
                         }
                         let associatedStudent = this.orderedAssignments[i][0];
                         this.logDebugMsg('  Trying to reverse last choice of ' + associatedStudent.name + '|' + assignment.nameOfSubject + '->' + assignment.groupID)
                         const isAssigned = this.assignToFirstFreeGroup(associatedStudent, notAssignedSubjectStr, freeGroups)
                         if (isAssigned) {
-                            let associatedGroup = this.findAssociatedGroup(assignment.nameOfSubject, assignment.groupID)
                             this.removeAssignment(associatedStudent, assignment, associatedGroup);
                             this.assignStudentToGroup(associatedGroup, student, assignment.nameOfSubject)
                         }
