@@ -207,12 +207,12 @@ module.exports = class WorkScheduler {
 
         const obligatorySubjects = this.subjects.map((subject) => {
             return subject.nameOfSubject
-        })
+        });
         let groupsWithFreePlacesPerSubject = new Map();
         this.subjects.forEach((subject) => {
                 const groupsWithFreePlacesSingleSubject = subject.groups.filter((group) => {
                     return group.numberOfPeople > 0
-                })
+                });
                 groupsWithFreePlacesPerSubject.set(subject.nameOfSubject, groupsWithFreePlacesSingleSubject)
             }
         );
@@ -267,6 +267,7 @@ module.exports = class WorkScheduler {
                         if (isAssigned) {
                             this.removeAssignment(associatedStudent, assignment, associatedGroup);
                             this.assignStudentToGroup(associatedGroup, student, assignment.nameOfSubject)
+                            return;
                         }
                     }
                 }
