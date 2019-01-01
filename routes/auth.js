@@ -35,10 +35,8 @@ exports.authenticateAdmin = (username, password) => {
             bcrypt.compare(password, admin.password, (err, isMatch) => {
                 if (err) throw err;
                 if (isMatch) {
-                    console.log('Match')
                     resolve(admin);
                 } else {
-                    console.log('Match no')
                     reject('Bad password');
                 }
             });

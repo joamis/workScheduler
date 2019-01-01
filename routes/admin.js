@@ -25,7 +25,6 @@ module.exports = server => {
             const { iat, exp} = jwt.decode(token);
 
             //Respond with token
-            console.log('watafak')
             res.send({ iat, exp, token});
 
         } catch (err) {

@@ -252,7 +252,7 @@ module.exports = class WorkScheduler {
                 const freeGroups = groupsWithFreePlacesPerSubject.get(notAssignedSubjectStr)
                 const isAssigned = this.assignToFirstFreeGroup(student, notAssignedSubjectStr, freeGroups)
                 if (!isAssigned) {
-                    this.logDebugMsg(' --- Backoff activated --- ')
+                    this.logDebugMsg(' --- Backoff activated --- ');
                     // All groups are taken, try to back-off
                     for (let i = this.orderedAssignments.length - 1; i >= 0; --i) {
                         const assignment = this.orderedAssignments[i][1];
