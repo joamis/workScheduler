@@ -24,7 +24,7 @@ module.exports = class WorkScheduler {
         this.subjects = subjects;
         this.students = students;
         this.choicesToIgnore = [];
-        this.shouldOutputDebugInfo = false;
+        this.shouldOutputDebugInfo = true;
         this.timeController = new TimeController(this.shouldOutputDebugInfo);
         this.orderedAssignments = []
     }
