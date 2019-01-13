@@ -1,5 +1,7 @@
 const errors = require('restify-errors');
 const Student = require('../models/Student');
+const User = require('../models/User');
+var generator = require('generate-password');
 
 module.exports = server => {
 
@@ -49,6 +51,22 @@ module.exports = server => {
         try{
 
             const newStudent = await student.save();
+
+            var password = generator.generate({
+                length: 10,
+                numbers: true
+            });
+            const user = new User({
+                            username,
+                            password
+                        });
+
+            user.save((err) => {
+                if (err) {
+                    res.status(409);
+                }
+            });
+
             res.send(newStudent);
             next();
         }

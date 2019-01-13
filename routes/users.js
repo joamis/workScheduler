@@ -10,31 +10,31 @@ const Student = require('../models/Student')
 module.exports = server => {
 
     server.post('/register', async (req, res, next) => {
-        const {username, password} = JSON.parse(req.body)
+        const {username, password, new_password} = JSON.parse(req.body)
 
         const student = await Student.findOne({username})
+        const user = await User.findOne({username})
 
-        if(student != null) {
-            const user = new User({
-                username,
-                password
-            });
-
-
+        if(student != null && user!= null) {
+            if (user.password !== password) {
+                res.send('Bledne haslo')
+            }
             bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(user.password, salt, async (err, hash) => {
+                bcrypt.hash(new_password, salt, async (err, hash) => {
                     user.password = hash;
                     user.save((err) => {
                         if (err) {
                             res.status(409)
                             res.send('Duplikat')
+                        } else {
+                            res.send(user)
                         }
                     })
                 })
             })
         }
         else {
-            res.send('Nie ma takiego studenta')
+            res.send('Nie ma takiego studenta lub uzytkownika')
         }
 
     });
